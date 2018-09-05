@@ -525,7 +525,7 @@ BEGIN TRY
 IF EXISTS (SELECT 1 FROM dbo.Ucenici WHERE MaticniBroj = @MaticniBroj)
 	BEGIN
 		UPDATE dbo.Ucenici
-		SET MaticniBroj = @MaticniBroj, Ime = @Ime, Prezime = @Prezime, JMBG = @JMBG, OdeljenjeID = @OdeljenjeID, DatumRodjenja = @DatumRodjenja, MestoRodjenja = @MestoRodjenja, OpstinaRodjenja = @OpstinaRodjenja, DrzavaRodjenja = @DrzavaRodjenja, ImeOca = @ImeOca, PrezimeOca = @PrezimeOca, KontaktTelefonOca = @KontaktTelefonOca, EmailOca = @EmailOca, ImeMajke = @ImeMajke, PrezimeMajke = @PrezimeMajke, KontaktTelefonMajke = @KontaktTelefonMajke, EmailMajke = @EmailMajke, LoginSifra = @LoginSifra
+		SET Ime = @Ime, Prezime = @Prezime, JMBG = @JMBG, OdeljenjeID = @OdeljenjeID, DatumRodjenja = @DatumRodjenja, MestoRodjenja = @MestoRodjenja, OpstinaRodjenja = @OpstinaRodjenja, DrzavaRodjenja = @DrzavaRodjenja, ImeOca = @ImeOca, PrezimeOca = @PrezimeOca, KontaktTelefonOca = @KontaktTelefonOca, EmailOca = @EmailOca, ImeMajke = @ImeMajke, PrezimeMajke = @PrezimeMajke, KontaktTelefonMajke = @KontaktTelefonMajke, EmailMajke = @EmailMajke, LoginSifra = @LoginSifra
 		WHERE MaticniBroj = @MaticniBroj
 		RETURN 0
 	END
