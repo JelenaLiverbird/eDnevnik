@@ -14,8 +14,20 @@ namespace eDnevnikDLL
         static SqlConnection Cn = new SqlConnection("server=.;integrated security=true;database=eDnevnik");
 
         #region ProfesorCRUD
-        public static int DodavanjeProfesora(Profesor dodati)
+        public static int DodavanjeProfesora(Profesor dodati) //Da li ce mo da vracamo i poruku ili ne???
         {
+            //Validate first
+            var responseFromValidator = Check.DataAnnotation.ValidateEntity<Profesor>(dodati);
+            if (responseFromValidator.HasError)
+            {
+                /*foreach (var error in responseFromValidator.ValidationErrors)
+                {
+                    whatError = whatError + error + System.Environment.NewLine;           <<< ???
+                }*/
+                return 99;
+            }
+
+
             try
             {
                 SqlCommand Cm = new SqlCommand();
@@ -270,7 +282,7 @@ namespace eDnevnikDLL
         }
         #endregion
 
-        #region Ucenici
+        #region UceniciCRUD
 
         public static int DodavanjeUcenika(Ucenik dodati)
         {
@@ -317,7 +329,6 @@ namespace eDnevnikDLL
                 return 99;
             }
         }
-
         public static int IzmenaUcenika(Ucenik izmeniti)
         {
             try
@@ -371,8 +382,11 @@ namespace eDnevnikDLL
 
     public class Profesor
     {
+        
         public int ProfesorID { get; set; }
+        [MinLength(2)]
         public string ImeProfesora { get; set; }
+
         public string Email { get; set; }
         public string KontaktTelefon { get; set; }
         public string LoginSifra { get; set; }
