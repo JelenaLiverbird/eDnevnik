@@ -454,7 +454,7 @@ GO
 
 --- Procedura za menjanje profesora ---
 CREATE PROCEDURE dbo.profesoriUPDATE
-(@ProfesorID int, @ImeProfesora nvarchar(50), @Email nvarchar(255), @KontaktTelefon nvarchar(50), @LoginSifra nvarchar(50), @Admin bit)
+(@ProfesorID int, @ImeProfesora nvarchar(50), @Email nvarchar(255), @KontaktTelefon nvarchar(50), @LoginSifra nvarchar(max), @Admin bit)
 AS
 BEGIN TRY
 IF EXISTS (SELECT 1 FROM dbo.Profesori WHERE ProfesorID = @ProfesorID)
@@ -503,7 +503,7 @@ GO
 --- Procesura za dodavanje ucenika ---
 
 CREATE PROCEDURE dbo.uceniciINSERT
-(@MaticniBroj int, @Ime nvarchar(50), @Prezime nvarchar(50), @JMBG nvarchar(50), @OdeljenjeID int, @DatumRodjenja date, @MestoRodjenja nvarchar(50), @OpstinaRodjenja nvarchar(50), @DrzavaRodjenja nvarchar(50), @KontaktTelefonUcenika nvarchar(50), @EmailUcenika nvarchar(255), @ImeOca nvarchar(50), @PrezimeOca nvarchar(50), @KontaktTelefonOca nvarchar(50), @EmailOca nvarchar(255), @ImeMajke nvarchar(50), @PrezimeMajke nvarchar (50), @KontaktTelefonMajke nvarchar(50), @EmailMajke nvarchar(255), @LoginSifra nvarchar(50))
+(@MaticniBroj int, @Ime nvarchar(50), @Prezime nvarchar(50), @JMBG nvarchar(50), @OdeljenjeID int, @DatumRodjenja date, @MestoRodjenja nvarchar(50), @OpstinaRodjenja nvarchar(50), @DrzavaRodjenja nvarchar(50), @KontaktTelefonUcenika nvarchar(50), @EmailUcenika nvarchar(255), @ImeOca nvarchar(50), @PrezimeOca nvarchar(50), @KontaktTelefonOca nvarchar(50), @EmailOca nvarchar(255), @ImeMajke nvarchar(50), @PrezimeMajke nvarchar (50), @KontaktTelefonMajke nvarchar(50), @EmailMajke nvarchar(255), @LoginSifra nvarchar(max))
 AS
 BEGIN TRY
 	INSERT INTO dbo.Ucenici
@@ -519,7 +519,7 @@ GO
 --- Procedura za menjanje ucenika ---
 
 CREATE PROCEDURE dbo.uceniciUPDATE
-(@MaticniBroj int, @Ime nvarchar(50), @Prezime nvarchar(50), @JMBG nvarchar(50), @OdeljenjeID int, @DatumRodjenja date, @MestoRodjenja nvarchar(50), @OpstinaRodjenja nvarchar(50), @DrzavaRodjenja nvarchar(50), @KontaktTelefonUcenika nvarchar(50), @EmailUcenika nvarchar(255), @ImeOca nvarchar(50), @PrezimeOca nvarchar(50), @KontaktTelefonOca nvarchar(50), @EmailOca nvarchar(255), @ImeMajke nvarchar(50), @PrezimeMajke nvarchar (50), @KontaktTelefonMajke nvarchar(50), @EmailMajke nvarchar(255), @LoginSifra nvarchar(50))
+(@MaticniBroj int, @Ime nvarchar(50), @Prezime nvarchar(50), @JMBG nvarchar(50), @OdeljenjeID int, @DatumRodjenja date, @MestoRodjenja nvarchar(50), @OpstinaRodjenja nvarchar(50), @DrzavaRodjenja nvarchar(50), @KontaktTelefonUcenika nvarchar(50), @EmailUcenika nvarchar(255), @ImeOca nvarchar(50), @PrezimeOca nvarchar(50), @KontaktTelefonOca nvarchar(50), @EmailOca nvarchar(255), @ImeMajke nvarchar(50), @PrezimeMajke nvarchar (50), @KontaktTelefonMajke nvarchar(50), @EmailMajke nvarchar(255), @LoginSifra nvarchar(max))
 AS
 BEGIN TRY
 IF EXISTS (SELECT 1 FROM dbo.Ucenici WHERE MaticniBroj = @MaticniBroj)
