@@ -300,19 +300,7 @@ GO
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-/***** TRIGGERI *****/
+/**************************** TRIGGERI ****************************/
 
 /***** UPDATE TRIGGER *****/
 
@@ -382,22 +370,12 @@ GO
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+/**************************** STORED PROCEDURES ****************************/
 
 
 /***** STORE PROCEDURE ZA OCENE *****/
 
---Procedura za unos nove ocene
+--- Procedura za unos nove ocene ---
 CREATE PROCEDURE dbo.OceneINSERT
 (@TipOcene nvarchar(50), @Ocena int, @OpisOcene nvarchar(50), @MaticniBroj int, @ProfesorID int, @PredmetID int)
 AS
@@ -412,7 +390,7 @@ BEGIN CATCH
 END CATCH
 GO
 
---Procedura za menjanje ocena
+--- Procedura za menjanje ocena ---
 CREATE PROCEDURE dbo.OceneUPDATE
 (@OcenaID int, @TipOcene nvarchar(50), @Ocena int, @OpisOcene nvarchar(50), @MaticniBroj int, @ProfesorID int, @PredmetID int)
 AS
@@ -434,7 +412,7 @@ BEGIN CATCH
 END CATCH
 GO
 
---Procedura za brisanje ocena
+--- Procedura za brisanje ocena ---
 CREATE PROCEDURE dbo.OceneDELETE
 (@OcenaID int)
 AS
@@ -457,20 +435,9 @@ GO
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 /***** STORE PROCEDURE ZA PROFESORE *****/
 
---Procedura za dodavanje profesora
+--- Procedura za dodavanje profesora ---
 CREATE PROCEDURE dbo.profesoriINSERT
 (@ImeProfesora nvarchar(50), @Email nvarchar(255), @KontaktTelefon nvarchar(50), @LoginSifra nvarchar(max), @Admin bit)
 AS
@@ -485,12 +452,12 @@ BEGIN CATCH
 END CATCH
 GO
 
---Procedura za menjanje profesora
+--- Procedura za menjanje profesora ---
 CREATE PROCEDURE dbo.profesoriUPDATE
 (@ProfesorID int, @ImeProfesora nvarchar(50), @Email nvarchar(255), @KontaktTelefon nvarchar(50), @LoginSifra nvarchar(50), @Admin bit)
 AS
 BEGIN TRY
-IF EXISTS (SELECT 1 FROM dbo.profesori WHERE profesorID = @profesorID)
+IF EXISTS (SELECT 1 FROM dbo.Profesori WHERE ProfesorID = @ProfesorID)
 	BEGIN
 		UPDATE dbo.Profesori
 		SET ImeProfesora = @ImeProfesora, Email = @Email, KontaktTelefon = @KontaktTelefon, LoginSifra = @LoginSifra, Admin = @Admin
@@ -507,7 +474,7 @@ BEGIN CATCH
 END CATCH
 GO
 
---Procedura za brisanje profesora
+--- Procedura za brisanje profesora ---
 CREATE PROCEDURE dbo.profesoriDELETE
 (@ProfesorID int)
 AS
@@ -530,43 +497,35 @@ GO
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 /***** STORE PROCEDURE ZA UCENIKE *****/
 
---Procesura za dodavanje ucenika
+
+--- Procesura za dodavanje ucenika ---
+
 CREATE PROCEDURE dbo.uceniciINSERT
-(@MaticniBroj int, @ime nvarchar(50), @prezime nvarchar(50), @JMBG nvarchar(50), @odeljenjeID int, @datumrodjenja date, @mestorodjenja nvarchar(50), @opstinarodjenja nvarchar(50), @drzavarodjenja nvarchar(50), @KontaktTelefonUcenika nvarchar(50), @EmailUcenika nvarchar(255), @imeoca nvarchar(50), @prezimeoca nvarchar(50), @KontaktTelefonOca nvarchar(50), @EmailOca nvarchar(255), @imemajke nvarchar(50), @prezimemajke nvarchar (50), @KontaktTelefonMajke nvarchar(50), @EmailMajke nvarchar(255), @loginsifra nvarchar(50))
+(@MaticniBroj int, @Ime nvarchar(50), @Prezime nvarchar(50), @JMBG nvarchar(50), @OdeljenjeID int, @DatumRodjenja date, @MestoRodjenja nvarchar(50), @OpstinaRodjenja nvarchar(50), @DrzavaRodjenja nvarchar(50), @KontaktTelefonUcenika nvarchar(50), @EmailUcenika nvarchar(255), @ImeOca nvarchar(50), @PrezimeOca nvarchar(50), @KontaktTelefonOca nvarchar(50), @EmailOca nvarchar(255), @ImeMajke nvarchar(50), @PrezimeMajke nvarchar (50), @KontaktTelefonMajke nvarchar(50), @EmailMajke nvarchar(255), @LoginSifra nvarchar(50))
 AS
 BEGIN TRY
 	INSERT INTO dbo.Ucenici
-	(MaticniBroj, ime, prezime, JMBG, odeljenjeID, datumrodjenja, mestorodjenja, opstinarodjenja, drzavarodjenja, KontaktTelefonUcenika, EmailUcenika, imeoca, prezimeoca, KontaktTelefonOca, EmailOca, imemajke, prezimemajke, KontaktTelefonMajke, EmailMajke, loginsifra)
+	(MaticniBroj, Ime, Prezime, JMBG, OdeljenjeID, DatumRodjenja, MestoRodjenja, OpstinaRodjenja, DrzavaRodjenja, KontaktTelefonUcenika, EmailUcenika, ImeOca, PrezimeOca, KontaktTelefonOca, EmailOca, ImeMajke, PrezimeMajke, KontaktTelefonMajke, EmailMajke, LoginSifra)
 	VALUES
-	(@MaticniBroj, @ime, @prezime, @JMBG, @odeljenjeID, @datumrodjenja, @mestorodjenja, @opstinarodjenja, @drzavarodjenja, @KontaktTelefonUcenika, @EmailUcenika, @imeoca, @prezimeoca, @KontaktTelefonOca, @EmailOca, @imemajke, @prezimemajke, @KontaktTelefonMajke, @EmailMajke, @loginsifra)
+	(@MaticniBroj, @Ime, @Prezime, @JMBG, @OdeljenjeID, @DatumRodjenja, @MestoRodjenja, @OpstinaRodjenja, @DrzavaRodjenja, @KontaktTelefonUcenika, @EmailUcenika, @ImeOca, @PrezimeOca, @KontaktTelefonOca, @EmailOca, @imemajke, @prezimemajke, @KontaktTelefonMajke, @EmailMajke, @LoginSifra)
 END TRY
 BEGIN CATCH
 	RETURN @@ERROR
 END CATCH
 GO
 
---Procedura za menjanje ucenika
+--- Procedura za menjanje ucenika ---
+
 CREATE PROCEDURE dbo.uceniciUPDATE
-(@MaticniBroj int, @ime nvarchar(50), @prezime nvarchar(50), @JMBG nvarchar(50), @odeljenjeID int, @datumrodjenja date, @mestorodjenja nvarchar(50), @opstinarodjenja nvarchar(50), @drzavarodjenja nvarchar(50), @KontaktTelefonUcenika nvarchar(50), @EmailUcenika nvarchar(255), @imeoca nvarchar(50), @prezimeoca nvarchar(50), @KontaktTelefonOca nvarchar(50), @EmailOca nvarchar(255), @imemajke nvarchar(50), @prezimemajke nvarchar (50), @KontaktTelefonMajke nvarchar(50), @EmailMajke nvarchar(255), @loginsifra nvarchar(50))
+(@MaticniBroj int, @Ime nvarchar(50), @Prezime nvarchar(50), @JMBG nvarchar(50), @OdeljenjeID int, @DatumRodjenja date, @MestoRodjenja nvarchar(50), @OpstinaRodjenja nvarchar(50), @DrzavaRodjenja nvarchar(50), @KontaktTelefonUcenika nvarchar(50), @EmailUcenika nvarchar(255), @ImeOca nvarchar(50), @PrezimeOca nvarchar(50), @KontaktTelefonOca nvarchar(50), @EmailOca nvarchar(255), @ImeMajke nvarchar(50), @PrezimeMajke nvarchar (50), @KontaktTelefonMajke nvarchar(50), @EmailMajke nvarchar(255), @LoginSifra nvarchar(50))
 AS
 BEGIN TRY
-IF EXISTS (SELECT 1 FROM dbo.ucenici WHERE MaticniBroj = @MaticniBroj)
+IF EXISTS (SELECT 1 FROM dbo.Ucenici WHERE MaticniBroj = @MaticniBroj)
 	BEGIN
 		UPDATE dbo.Ucenici
-		SET MaticniBroj = @MaticniBroj, ime = @ime, prezime = @prezime, JMBG = @JMBG, odeljenjeID = @odeljenjeID, datumrodjenja = @datumrodjenja, mestorodjenja = @mestorodjenja, opstinarodjenja = @opstinarodjenja, drzavarodjenja = @drzavarodjenja, imeoca = @imeoca, prezimeoca = @prezimeoca, imemajke = @imemajke, prezimemajke = @prezimemajke, loginsifra = @loginsifra
+		SET MaticniBroj = @MaticniBroj, Ime = @Ime, Prezime = @Prezime, JMBG = @JMBG, OdeljenjeID = @OdeljenjeID, DatumRodjenja = @DatumRodjenja, MestoRodjenja = @MestoRodjenja, OpstinaRodjenja = @OpstinaRodjenja, DrzavaRodjenja = @DrzavaRodjenja, ImeOca = @ImeOca, PrezimeOca = @PrezimeOca, KontaktTelefonOca = @KontaktTelefonOca, EmailOca = @EmailOca, ImeMajke = @ImeMajke, PrezimeMajke = @PrezimeMajke, KontaktTelefonMajke = @KontaktTelefonMajke, EmailMajke = @EmailMajke, LoginSifra = @LoginSifra
 		WHERE MaticniBroj = @MaticniBroj
 		RETURN 0
 	END
@@ -580,12 +539,13 @@ BEGIN CATCH
 END CATCH
 GO
 
---Procedura za brisanje ucenika
+--- Procedura za brisanje ucenika ---
+
 CREATE PROCEDURE dbo.uceniciDELETE
 (@MaticniBroj int)
 AS
 BEGIN TRY
-IF EXISTS (SELECT 1 FROM dbo.ucenici WHERE MaticniBroj = @MaticniBroj)
+IF EXISTS (SELECT 1 FROM dbo.Ucenici WHERE MaticniBroj = @MaticniBroj)
 	BEGIN
 		DELETE FROM dbo.Ucenici
 		WHERE MaticniBroj = @MaticniBroj
@@ -603,25 +563,10 @@ GO
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /***** STORE PROCEDURE ZA ODELJENJA *****/
 
 
---SP za dodavanje razrednog u odeljenja 
+--- SP za dodavanje razrednog u odeljenja --- 
 
 CREATE PROCEDURE dbo.odeljenjaUPDATE
 (@OdeljenjeID int, @RazredniID int)
@@ -644,7 +589,7 @@ BEGIN CATCH
 END CATCH
 GO
 
--- SP za selektovanje odeljenja 
+--- SP za selektovanje odeljenja ---
 
 CREATE PROCEDURE dbo.odeljenjaSELECT
 (@BrojPoStrani int = 20, @TrenutnaStrana int, @BrojOdeljenja int, @GodinaSkolovanja int, @SkolskaGodina int = year)
@@ -666,63 +611,40 @@ GO
 
 
 
+/**************************** PUNJENJE TABELA VREDNOSTIMA ****************************/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/***** PUNJENJE BAZE BASE VREDNOSTIMA *****/
-
---Punjenje tabele Godine 
+--- Punjenje tabele Godine ---
 GO
 DECLARE @PocetnaGodina int = 2010
 WHILE @PocetnaGodina < 2100
 BEGIN
-   
-		DECLARE @GodinaSkolovanja int = 1
-		WHILE @GodinaSkolovanja < 5
-		BEGIN
-		
-			INSERT INTO dbo.Godine
-			(GodinaSkolovanja, SkolskaGodina)
-			VALUES (@GodinaSkolovanja, @PocetnaGodina)
-		
-		SET @GodinaSkolovanja = @GodinaSkolovanja + 1
-		END
-   
+	DECLARE @GodinaSkolovanja int = 1
+	WHILE @GodinaSkolovanja < 5
+	BEGIN
+		INSERT INTO dbo.Godine
+		(GodinaSkolovanja, SkolskaGodina)
+		VALUES (@GodinaSkolovanja, @PocetnaGodina)
+	SET @GodinaSkolovanja = @GodinaSkolovanja + 1
+	END
 SET @PocetnaGodina = @PocetnaGodina + 1
 END
 
 
---Punjenje tabele Odeljenje
+--- Punjenje tabele Odeljenje ---
 
 GO
 DECLARE @GodinaID int = 1
 DECLARE @Max int
---SET @Max = (SELECT COUNT(*) from dbo.Godine)
 WHILE @GodinaID < (SELECT COUNT(*) from dbo.Godine)
 BEGIN
-   
-		DECLARE @BrojOdeljenja int = 1
-		WHILE @BrojOdeljenja < 10
-		BEGIN
-		
-			INSERT INTO dbo.Odeljenja
-			(BrojOdeljenja, GodinaID)
-			VALUES (@BrojOdeljenja, @GodinaID)
-		
-		SET @BrojOdeljenja = @BrojOdeljenja + 1
-		END
-   
+	DECLARE @BrojOdeljenja int = 1
+	WHILE @BrojOdeljenja < 10
+	BEGIN
+		INSERT INTO dbo.Odeljenja
+		(BrojOdeljenja, GodinaID)
+		VALUES (@BrojOdeljenja, @GodinaID)
+	SET @BrojOdeljenja = @BrojOdeljenja + 1
+	END
 SET @GodinaID = @GodinaID + 1
 END
 
