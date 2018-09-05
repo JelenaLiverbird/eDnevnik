@@ -664,4 +664,41 @@ WHILE @Br < 30
 END
 GO
 
----Punjenje test podatcima 
+
+
+---Punjenje test podatcima Predmete
+INSERT INTO eDnevnik.dbo.Predmeti (Redosled, NazivPredmeta , ProfesorID)
+VALUES ( 100 , N'Srpski' ,  (SELECT TOP 1 ProfesorID FROM dbo.Profesori ORDER BY NEWID() )  ) --Ubacujem random profesora
+SELECT * FROM eDnevnik.dbo.Predmeti --TODO  PROBLEM ZASTO IMAM ID PROFESORA U PREDMETIMA PITAJ DRUGARICE
+
+
+
+
+
+
+
+---Punjenje test podatcima TipOcena
+INSERT INTO eDnevnik.dbo.TipOcene
+(TipOcene)
+VALUES('Usmeni');
+
+INSERT INTO eDnevnik.dbo.TipOcene
+(TipOcene)
+VALUES('Pismeni');
+
+INSERT INTO eDnevnik.dbo.TipOcene
+(TipOcene)
+VALUES('Kontrolni');
+
+INSERT INTO eDnevnik.dbo.TipOcene
+(TipOcene)
+VALUES('Polugodiste');
+
+INSERT INTO eDnevnik.dbo.TipOcene
+(TipOcene)
+VALUES('Zakljucna');
+
+
+
+
+
