@@ -614,7 +614,7 @@ GO
 /**************************** PUNJENJE TABELA VREDNOSTIMA ****************************/
 
 --- Punjenje tabele Godine ---
-GO
+
 DECLARE @PocetnaGodina int = 2010
 WHILE @PocetnaGodina < 2100
 BEGIN
@@ -628,11 +628,10 @@ BEGIN
 	END
 SET @PocetnaGodina = @PocetnaGodina + 1
 END
-
+GO
 
 --- Punjenje tabele Odeljenje ---
 
-GO
 DECLARE @GodinaID int = 1
 DECLARE @Max int
 WHILE @GodinaID < (SELECT COUNT(*) from dbo.Godine)
@@ -647,6 +646,22 @@ BEGIN
 	END
 SET @GodinaID = @GodinaID + 1
 END
+GO
 
 
+---Punjenje test podatcima Profesori
 
+DECLARE @Prf NVARCHAR(50) = N'Profa'
+DECLARE @Eml NVARCHAR(50) = N'Em'
+DECLARE @Br int = 1
+WHILE @Br < 30
+	BEGIN 
+		INSERT INTO dbo.Profesori
+		(ImeProfesora , Email , KontaktTelefon, LoginSifra, Admin )
+		VALUES
+		( (@Prf + CAST(@BR as varchar(2))) , (@Eml + CAST(@BR as varchar(2))) , N'011-202-202' ,  N'neki hash' , 0 )
+	SET @Br = @Br + 1
+END
+GO
+
+---Punjenje test podatcima 
