@@ -1,0 +1,5 @@
+C:\Users\Obuka\Documents\GitTest\eDnevnik\SoleDnevnikDLL\eDnevnikDLL\obj\Debug\eDnevnikDLL.csprojResolveAssemblyReference.cache
+C:\Users\Obuka\Documents\GitTest\eDnevnik\SoleDnevnikDLL\eDnevnikDLL\bin\Debug\eDnevnikDLL.dll
+C:\Users\Obuka\Documents\GitTest\eDnevnik\SoleDnevnikDLL\eDnevnikDLL\bin\Debug\eDnevnikDLL.pdb
+C:\Users\Obuka\Documents\GitTest\eDnevnik\SoleDnevnikDLL\eDnevnikDLL\obj\Debug\eDnevnikDLL.dll
+C:\Users\Obuka\Documents\GitTest\eDnevnik\SoleDnevnikDLL\eDnevnikDLL\obj\Debug\eDnevnikDLL.pdb
