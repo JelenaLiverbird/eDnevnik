@@ -503,7 +503,7 @@ GO
 --- Procesura za dodavanje ucenika ---
 
 CREATE PROCEDURE dbo.uceniciINSERT
-(@MaticniBroj int, @Ime nvarchar(50), @Prezime nvarchar(50), @JMBG nvarchar(50), @OdeljenjeID int, @DatumRodjenja date, @MestoRodjenja nvarchar(50), @OpstinaRodjenja nvarchar(50), @DrzavaRodjenja nvarchar(50), @KontaktTelefonUcenika nvarchar(50), @EmailUcenika nvarchar(255), @ImeOca nvarchar(50), @PrezimeOca nvarchar(50), @KontaktTelefonOca nvarchar(50), @EmailOca nvarchar(255), @ImeMajke nvarchar(50), @PrezimeMajke nvarchar (50), @KontaktTelefonMajke nvarchar(50), @EmailMajke nvarchar(255), @LoginSifra nvarchar(max))
+(@MaticniBroj nvarchar(10), @Ime nvarchar(50), @Prezime nvarchar(50), @JMBG nvarchar(50), @OdeljenjeID int, @DatumRodjenja date, @MestoRodjenja nvarchar(50), @OpstinaRodjenja nvarchar(50), @DrzavaRodjenja nvarchar(50), @KontaktTelefonUcenika nvarchar(50), @EmailUcenika nvarchar(255), @ImeOca nvarchar(50), @PrezimeOca nvarchar(50), @KontaktTelefonOca nvarchar(50), @EmailOca nvarchar(255), @ImeMajke nvarchar(50), @PrezimeMajke nvarchar (50), @KontaktTelefonMajke nvarchar(50), @EmailMajke nvarchar(255), @LoginSifra nvarchar(max))
 AS
 BEGIN TRY
 	INSERT INTO dbo.Ucenici
@@ -595,13 +595,18 @@ CREATE PROCEDURE dbo.odeljenjaSELECT
 (@BrojPoStrani int = 20, @TrenutnaStrana int, @BrojOdeljenja int, @GodinaSkolovanja int, @SkolskaGodina int = year)
 AS
 BEGIN TRY
-	SELECT (20)
+	SELECT *
 	FROM dbo.Odeljenja  
 	INNER JOIN dbo.Godine ON dbo.Odeljenja.GodinaID = dbo.Godine.GodinaID
 	WHERE 
   		( (@BrojOdeljenja IS NULL) OR (BrojOdeljenja = @BrojOdeljenja) )  AND
   		( (@GodinaSkolovanja IS NULL) OR (dbo.Godine.GodinaSkolovanja = @GodinaSkolovanja) )  AND
   		( (@SkolskaGodina IS NULL) OR (dbo.Godine.SkolskaGodina = @SkolskaGodina) )
+
+	ORDER BY dbo.Odeljenja.BrojOdeljenja
+	OFFSET (@TrenutnaStrana * @BrojPoStrani) ROWS
+         FETCH NEXT @BrojPoStrani ROWS ONLY
+
 	RETURN 0
 END TRY
 BEGIN CATCH
@@ -664,17 +669,47 @@ WHILE @Br < 30
 END
 GO
 
+--Punjenje test podatcima Ucenici 
+
+DECLARE @Br int = 1
+WHILE @Br < 30
+	BEGIN 
+		DECLARE @MaticniBroj NVARCHAR(10) = N'NekiMB' + CAST(@Br as varchar(2))
+		DECLARE @Ime NVARCHAR(50) = N'NekoIme' + CAST(@Br as varchar(2))
+		DECLARE @Prezime NVARCHAR(50) = N'NekoPrezime' + CAST(@Br as varchar(2))
+		DECLARE @JMBG NVARCHAR(13) = N'NekoJMBG' + CAST(@Br as varchar(2))
+		DECLARE @OdeljenjeID int =  ( SELECT TOP 1 OdeljenjeID FROM dbo.Odeljenja INNER JOIN dbo.Godine ON dbo.Odeljenja.GodinaID = dbo.Godine.GodinaID WHERE SkolskaGodina = 2018  ORDER BY NEWID() )
+		DECLARE @DatumRodjenja date = DATEADD(day, (ABS(CHECKSUM(NEWID())) % 65530), 0)
+		DECLARE @MestoRodjenja NVARCHAR(50) = N'Nis'
+		DECLARE @OpstinaRodjenja NVARCHAR(50) = N'Neka'
+		DECLARE @DrzavaRodjenja NVARCHAR(50) = N'Srbija'
+		DECLARE @KontaktTelefonUcenika NVARCHAR(50) = N'22-33-22'
+		DECLARE @EmailUcenika NVARCHAR(255) = N'NekoEmail' + CAST(@Br as varchar(2))
+		DECLARE @ImeOca nvarchar(50) = N'Kan'
+		DECLARE @PrezimeOca nvarchar(50) = N'Dzingis'
+		DECLARE @ImeMajke nvarchar(50) = N'Kleo'
+		DECLARE @PrezimeMajke nvarchar(50) = N'Patra'
+		DECLARE @LoginSifra nvarchar(max) = N'Neki hash'
+
+		EXEC dbo.uceniciINSERT @MaticniBroj, @Ime , @Prezime , @JMBG , @OdeljenjeID , @DatumRodjenja , @MestoRodjenja , @OpstinaRodjenja , @DrzavaRodjenja, @KontaktTelefonUcenika ,@EmailUcenika , @ImeOca , @PrezimeOca , null , null , @ImeMajke, @PrezimeMajke , null , null , @LoginSifra 
+	SET @Br = @Br + 1
+END
+
+SELECT * FROM Ucenici ORDER BY OdeljenjeID
 
 
 ---Punjenje test podatcima Predmete
 INSERT INTO eDnevnik.dbo.Predmeti (Redosled, NazivPredmeta , ProfesorID)
 VALUES ( 100 , N'Srpski' ,  (SELECT TOP 1 ProfesorID FROM dbo.Profesori ORDER BY NEWID() )  ) --Ubacujem random profesora
+INSERT INTO eDnevnik.dbo.Predmeti (Redosled, NazivPredmeta , ProfesorID)
+VALUES ( 200 , N'Matematika' ,  (SELECT TOP 1 ProfesorID FROM dbo.Profesori ORDER BY NEWID() )  ) --Ubacujem random profesora
+INSERT INTO eDnevnik.dbo.Predmeti (Redosled, NazivPredmeta , ProfesorID)
+VALUES ( 300 , N'Engleski' ,  (SELECT TOP 1 ProfesorID FROM dbo.Profesori ORDER BY NEWID() )  ) --Ubacujem random profesora
+INSERT INTO eDnevnik.dbo.Predmeti (Redosled, NazivPredmeta , ProfesorID)
+VALUES ( 400 , N'Filozofija' ,  (SELECT TOP 1 ProfesorID FROM dbo.Profesori ORDER BY NEWID() )  ) --Ubacujem random profesora
+
+
 SELECT * FROM eDnevnik.dbo.Predmeti --TODO  PROBLEM ZASTO IMAM ID PROFESORA U PREDMETIMA PITAJ DRUGARICE
-
-
-
-
-
 
 
 ---Punjenje test podatcima TipOcena
