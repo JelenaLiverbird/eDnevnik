@@ -653,8 +653,9 @@ SET @GodinaID = @GodinaID + 1
 END
 GO
 
+----------------------------------------------------------------------------------------------------------------------------------------------
 
----Punjenje test podatcima Profesori
+--- Punjenje test podacima Profesori ---
 
 DECLARE @Prf NVARCHAR(50) = N'Profa'
 DECLARE @Eml NVARCHAR(50) = N'Em'
@@ -669,7 +670,7 @@ WHILE @Br < 30
 END
 GO
 
---Punjenje test podatcima Ucenici 
+--- Punjenje test podacima Ucenici ---
 
 DECLARE @Br int = 1
 WHILE @Br < 30
@@ -698,7 +699,8 @@ END
 SELECT * FROM Ucenici ORDER BY OdeljenjeID
 
 
----Punjenje test podatcima Predmete
+--- Punjenje test podacima Predmete ---
+
 INSERT INTO eDnevnik.dbo.Predmeti (Redosled, NazivPredmeta , ProfesorID)
 VALUES ( 100 , N'Srpski' ,  (SELECT TOP 1 ProfesorID FROM dbo.Profesori ORDER BY NEWID() )  ) --Ubacujem random profesora
 INSERT INTO eDnevnik.dbo.Predmeti (Redosled, NazivPredmeta , ProfesorID)
@@ -709,10 +711,9 @@ INSERT INTO eDnevnik.dbo.Predmeti (Redosled, NazivPredmeta , ProfesorID)
 VALUES ( 400 , N'Filozofija' ,  (SELECT TOP 1 ProfesorID FROM dbo.Profesori ORDER BY NEWID() )  ) --Ubacujem random profesora
 
 
-SELECT * FROM eDnevnik.dbo.Predmeti --TODO  PROBLEM ZASTO IMAM ID PROFESORA U PREDMETIMA PITAJ DRUGARICE
 
+--- Punjenje test podacima TipOcena ---
 
----Punjenje test podatcima TipOcena
 INSERT INTO eDnevnik.dbo.TipOcene
 (TipOcene)
 VALUES('Usmeni');
@@ -732,6 +733,8 @@ VALUES('Polugodiste');
 INSERT INTO eDnevnik.dbo.TipOcene
 (TipOcene)
 VALUES('Zakljucna');
+
+
 
 
 
