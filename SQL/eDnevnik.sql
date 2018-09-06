@@ -434,8 +434,8 @@ END CATCH
 GO
 
 
-
 /***** STORE PROCEDURE ZA PROFESORE *****/
+
 
 --- Procedura za dodavanje profesora ---
 CREATE PROCEDURE dbo.profesoriINSERT
@@ -492,6 +492,46 @@ ELSE
 END TRY
 BEGIN CATCH
 	RETURN @@ERROR
+END CATCH
+GO
+
+--- Procedura za login ---
+
+CREATE PROCEDURE dbo.LoginKorisnika
+ (
+	@Korisnik nvarchar(255),
+	@LoginSifra nvarchar(max),
+	@ProfesorID int OUTPUT,
+	@MaticniBroj nvarchar(10) OUTPUT
+ )
+ AS
+ BEGIN TRY
+	IF EXISTS (SELECT 1 FROM dbo.Profesori WHERE Email = @Korisnik AND LoginSifra = @LoginSifra)
+	BEGIN 
+		SELECT @ProfesorID = ProfesorID
+		FROM dbo.Profesori
+		WHERE Email = @Korisnik AND LoginSifra = @LoginSifra
+		INSERT INTO dbo.SesijeKorisnika
+		(VremeLogin, ProfesorID)
+		VALUES 
+		(GETDATE(), @ProfesorID)
+		RETURN 0
+	END
+	ELSE
+	IF EXISTS (SELECT 1 FROM dbo.Ucenici WHERE JMBG = @Korisnik AND LoginSifra = @LoginSifra)
+	BEGIN
+		SELECT @MaticniBroj = @MaticniBroj
+		FROM dbo.Ucenici
+		WHERE JMBG = @Korisnik AND LoginSifra = @LoginSifra
+		RETURN 0
+	END
+	ELSE
+	BEGIN
+		RETURN -1;
+	END
+END TRY
+BEGIN CATCH
+	RETURN @@Error
 END CATCH
 GO
 
@@ -562,7 +602,6 @@ END CATCH
 GO
 
 
-
 /***** STORE PROCEDURE ZA ODELJENJA *****/
 
 
@@ -613,6 +652,7 @@ BEGIN CATCH
 	RETURN @@Error
 END CATCH
 GO
+
 
 
 
