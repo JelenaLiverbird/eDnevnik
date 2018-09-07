@@ -54,17 +54,13 @@ CREATE TABLE dbo.Predmeti
 	PredmetID int IDENTITY NOT NULL,
 	Redosled int NOT NULL,
 	NazivPredmeta nvarchar(100) NOT NULL,
-	ProfesorID int NOT NULL
+	Godina int NOT NULL
 )
 
 ALTER TABLE dbo.Predmeti
 ADD CONSTRAINT [PK_Predmeti] PRIMARY KEY (PredmetID)
 GO
 
-ALTER TABLE dbo.Predmeti 
-ADD CONSTRAINT [FK_Predmeti_Profesori] FOREIGN KEY (ProfesorID)
-REFERENCES dbo.Profesori (ProfesorID)
-GO
 
 
 /****** Object:  Table [dbo].[odeljenja] ******/
@@ -433,19 +429,61 @@ BEGIN CATCH
 END CATCH
 GO
 
+CREATE PROCEDURE dbo.OceneSELECT
+(@BrojPoStrani int = 20, @TrenutnaStrana int, @NazivPredmeta nvarchar(50), @ImeUcenika nvarchar(50), @ImeProfesora nvarchar(50), @GodinaSkolovanja int, @OdeljenjeBroj int)
+AS
+BEGIN TRY
+	SELECT U.Ime, U.Prezime, P.NazivPredmeta, O.Ocena, PR.ImeProfesora, O.TipOcene, O.DatumOcene 
+	FROM dbo.Ucenici AS U 
+	INNER JOIN dbo.Ocene AS O ON U.MaticniBroj = O.MaticniBroj
+	INNER JOIN  dbo.Predmeti AS P ON O.PredmetID = P.PredmetID
+	INNER JOIN dbo.DodeljeniProfesori AS DP ON DP.PredmetID = P.PredmetID
+	INNER JOIN dbo.Profesori AS PR ON DP.ProfesorID = PR.ProfesorID
+	INNER JOIN dbo.Odeljenja AS OD ON OD.OdeljenjeID = DP.OdeljenjeID
+	INNER JOIN dbo.Godine AS G ON G.GodinaID = OD.GodinaID
+	WHERE
+	(@NazivPredmeta IS NULL OR @NazivPredmeta = P.NazivPredmeta) AND
+	(@ImeUcenika IS NULL OR @ImeUcenika = CONCAT(U.Ime, ' ',  U.Prezime) OR @ImeUcenika = CONCAT(U.Prezime, ' ', U.Ime) OR @ImeUcenika = U.Prezime OR @ImeUcenika = U.Ime) AND
+	(@ImeProfesora IS NULL OR @ImeProfesora = PR.ImeProfesora) AND
+	(@GodinaSkolovanja IS NULL OR @GodinaSkolovanja = G.GodinaSkolovanja) AND
+	(@OdeljenjeBroj IS NULL OR @OdeljenjeBroj = OD.BrojOdeljenja)
+
+	ORDER BY P.NazivPredmeta
+	OFFSET (@TrenutnaStrana * @BrojPoStrani) ROWS
+         FETCH NEXT @BrojPoStrani ROWS ONLY
+
+	RETURN 0
+END TRY
+BEGIN CATCH
+	RETURN @@ERROR
+END CATCH
+GO
+
 
 /***** STORE PROCEDURE ZA PROFESORE *****/
 
 
 --- Procedura za dodavanje profesora ---
+
 CREATE PROCEDURE dbo.profesoriINSERT
-(@ImeProfesora nvarchar(50), @Email nvarchar(255), @KontaktTelefon nvarchar(50), @LoginSifra nvarchar(max), @Admin bit)
+(@ImeProfesora nvarchar(50), @Email nvarchar(255), @KontaktTelefon nvarchar(50), @LoginSifra nvarchar(max), @Admin bit, @NazivPredmeta nvarchar(100), @BrojOdeljenja int, @GodinaSkolovanja int, @SkolskaGodina int)
 AS
 BEGIN TRY
 	INSERT INTO dbo.Profesori
 	(ImeProfesora, Email, KontaktTelefon, LoginSifra, Admin)
 	VALUES
 	(@ImeProfesora, @Email, @KontaktTelefon, @LoginSifra, @Admin)
+
+	INSERT INTO dbo.DodeljeniProfesori
+	(ProfesorID, PredmetID, OdeljenjeID)
+	VALUES	
+	(	@@IDENTITY, 
+		(SELECT PredmetID FROM dbo.Predmeti where NazivPredmeta = @NazivPredmeta),
+		(SELECT OdeljenjeID FROM dbo.Odeljenja
+		INNER JOIN dbo.Godine 
+		ON dbo.Odeljenja.GodinaID = dbo.Godine.GodinaID 
+		WHERE BrojOdeljenja = @BrojOdeljenja AND dbo.Godine.GodinaSkolovanja = @GodinaSkolovanja AND SkolskaGodina = @SkolskaGodina)
+	)
 END TRY
 BEGIN CATCH
 	RETURN @@ERROR
@@ -453,14 +491,21 @@ END CATCH
 GO
 
 --- Procedura za menjanje profesora ---
+
 CREATE PROCEDURE dbo.profesoriUPDATE
-(@ProfesorID int, @ImeProfesora nvarchar(50), @Email nvarchar(255), @KontaktTelefon nvarchar(50), @LoginSifra nvarchar(max), @Admin bit)
+(@ProfesorID int, @ImeProfesora nvarchar(50), @Email nvarchar(255), @KontaktTelefon nvarchar(50), @LoginSifra nvarchar(max), @Admin bit, @NazivPredmeta nvarchar(100), @BrojOdeljenja int, @GodinaSkolovanja int, @SkolskaGodina int)
 AS
 BEGIN TRY
 IF EXISTS (SELECT 1 FROM dbo.Profesori WHERE ProfesorID = @ProfesorID)
 	BEGIN
 		UPDATE dbo.Profesori
 		SET ImeProfesora = @ImeProfesora, Email = @Email, KontaktTelefon = @KontaktTelefon, LoginSifra = @LoginSifra, Admin = @Admin
+		WHERE ProfesorID = @ProfesorID
+		
+		UPDATE dbo.DodeljeniProfesori
+		SET PredmetID = (SELECT PredmetID FROM dbo.Predmeti where NazivPredmeta = @NazivPredmeta), 
+			OdeljenjeID = (SELECT OdeljenjeID FROM dbo.Odeljenja INNER JOIN dbo.Godine ON dbo.Odeljenja.GodinaID = dbo.Godine.GodinaID 
+			WHERE BrojOdeljenja = @BrojOdeljenja AND dbo.Godine.GodinaSkolovanja = @GodinaSkolovanja AND SkolskaGodina = @SkolskaGodina)
 		WHERE ProfesorID = @ProfesorID
 		RETURN 0
 	END
@@ -475,6 +520,7 @@ END CATCH
 GO
 
 --- Procedura za brisanje profesora ---
+
 CREATE PROCEDURE dbo.profesoriDELETE
 (@ProfesorID int)
 AS
@@ -543,13 +589,22 @@ GO
 --- Procesura za dodavanje ucenika ---
 
 CREATE PROCEDURE dbo.uceniciINSERT
-(@MaticniBroj nvarchar(10), @Ime nvarchar(50), @Prezime nvarchar(50), @JMBG nvarchar(50), @OdeljenjeID int, @DatumRodjenja date, @MestoRodjenja nvarchar(50), @OpstinaRodjenja nvarchar(50), @DrzavaRodjenja nvarchar(50), @KontaktTelefonUcenika nvarchar(50), @EmailUcenika nvarchar(255), @ImeOca nvarchar(50), @PrezimeOca nvarchar(50), @KontaktTelefonOca nvarchar(50), @EmailOca nvarchar(255), @ImeMajke nvarchar(50), @PrezimeMajke nvarchar (50), @KontaktTelefonMajke nvarchar(50), @EmailMajke nvarchar(255), @LoginSifra nvarchar(max))
+(@MaticniBroj nvarchar(10), @Ime nvarchar(50), @Prezime nvarchar(50), @JMBG nvarchar(50), @BrojOdeljenja int, @GodinaSkolovanja int, @SkolskaGodina int, @DatumRodjenja date, @MestoRodjenja nvarchar(50), @OpstinaRodjenja nvarchar(50), @DrzavaRodjenja nvarchar(50), @KontaktTelefonUcenika nvarchar(50), @EmailUcenika nvarchar(255), @ImeOca nvarchar(50), @PrezimeOca nvarchar(50), @KontaktTelefonOca nvarchar(50), @EmailOca nvarchar(255), @ImeMajke nvarchar(50), @PrezimeMajke nvarchar (50), @KontaktTelefonMajke nvarchar(50), @EmailMajke nvarchar(255), @LoginSifra nvarchar(max), @IzborniPredmet int)
 AS
 BEGIN TRY
 	INSERT INTO dbo.Ucenici
 	(MaticniBroj, Ime, Prezime, JMBG, OdeljenjeID, DatumRodjenja, MestoRodjenja, OpstinaRodjenja, DrzavaRodjenja, KontaktTelefonUcenika, EmailUcenika, ImeOca, PrezimeOca, KontaktTelefonOca, EmailOca, ImeMajke, PrezimeMajke, KontaktTelefonMajke, EmailMajke, LoginSifra)
 	VALUES
-	(@MaticniBroj, @Ime, @Prezime, @JMBG, @OdeljenjeID, @DatumRodjenja, @MestoRodjenja, @OpstinaRodjenja, @DrzavaRodjenja, @KontaktTelefonUcenika, @EmailUcenika, @ImeOca, @PrezimeOca, @KontaktTelefonOca, @EmailOca, @imemajke, @prezimemajke, @KontaktTelefonMajke, @EmailMajke, @LoginSifra)
+	(@MaticniBroj, @Ime, @Prezime, @JMBG, (SELECT OdeljenjeID FROM dbo.Odeljenja INNER JOIN dbo.Godine ON dbo.Odeljenja.GodinaID = dbo.Godine.GodinaID WHERE BrojOdeljenja = @BrojOdeljenja AND dbo.Godine.GodinaSkolovanja = @GodinaSkolovanja AND SkolskaGodina = @SkolskaGodina), @DatumRodjenja, @MestoRodjenja, @OpstinaRodjenja, @DrzavaRodjenja, @KontaktTelefonUcenika, @EmailUcenika, @ImeOca, @PrezimeOca, @KontaktTelefonOca, @EmailOca, @ImeMajke, @PrezimeMajke, @KontaktTelefonMajke, @EmailMajke, @LoginSifra)
+
+	INSERT INTO dbo.DodeljeniPredmeti
+	(MaticniBroj, PredmetID)
+	VALUES
+	(
+		@MaticniBroj, (SELECT * FROM Predmeti ) -------> NIJE ZAVRSENO!!!!
+	)
+	
+
 END TRY
 BEGIN CATCH
 	RETURN @@ERROR
@@ -559,13 +614,13 @@ GO
 --- Procedura za menjanje ucenika ---
 
 CREATE PROCEDURE dbo.uceniciUPDATE
-(@MaticniBroj int, @Ime nvarchar(50), @Prezime nvarchar(50), @JMBG nvarchar(50), @OdeljenjeID int, @DatumRodjenja date, @MestoRodjenja nvarchar(50), @OpstinaRodjenja nvarchar(50), @DrzavaRodjenja nvarchar(50), @KontaktTelefonUcenika nvarchar(50), @EmailUcenika nvarchar(255), @ImeOca nvarchar(50), @PrezimeOca nvarchar(50), @KontaktTelefonOca nvarchar(50), @EmailOca nvarchar(255), @ImeMajke nvarchar(50), @PrezimeMajke nvarchar (50), @KontaktTelefonMajke nvarchar(50), @EmailMajke nvarchar(255), @LoginSifra nvarchar(max))
+(@MaticniBroj int, @Ime nvarchar(50), @Prezime nvarchar(50), @JMBG nvarchar(50), @BrojOdeljenja int, @GodinaSkolovanja int, @SkolskaGodina int, @DatumRodjenja date, @MestoRodjenja nvarchar(50), @OpstinaRodjenja nvarchar(50), @DrzavaRodjenja nvarchar(50), @KontaktTelefonUcenika nvarchar(50), @EmailUcenika nvarchar(255), @ImeOca nvarchar(50), @PrezimeOca nvarchar(50), @KontaktTelefonOca nvarchar(50), @EmailOca nvarchar(255), @ImeMajke nvarchar(50), @PrezimeMajke nvarchar (50), @KontaktTelefonMajke nvarchar(50), @EmailMajke nvarchar(255), @LoginSifra nvarchar(max))
 AS
 BEGIN TRY
 IF EXISTS (SELECT 1 FROM dbo.Ucenici WHERE MaticniBroj = @MaticniBroj)
 	BEGIN
 		UPDATE dbo.Ucenici
-		SET Ime = @Ime, Prezime = @Prezime, JMBG = @JMBG, OdeljenjeID = @OdeljenjeID, DatumRodjenja = @DatumRodjenja, MestoRodjenja = @MestoRodjenja, OpstinaRodjenja = @OpstinaRodjenja, DrzavaRodjenja = @DrzavaRodjenja, ImeOca = @ImeOca, PrezimeOca = @PrezimeOca, KontaktTelefonOca = @KontaktTelefonOca, EmailOca = @EmailOca, ImeMajke = @ImeMajke, PrezimeMajke = @PrezimeMajke, KontaktTelefonMajke = @KontaktTelefonMajke, EmailMajke = @EmailMajke, LoginSifra = @LoginSifra
+		SET Ime = @Ime, Prezime = @Prezime, JMBG = @JMBG, OdeljenjeID = (SELECT OdeljenjeID FROM dbo.Odeljenja INNER JOIN dbo.Godine ON dbo.Odeljenja.GodinaID = dbo.Godine.GodinaID WHERE BrojOdeljenja = @BrojOdeljenja AND dbo.Godine.GodinaSkolovanja = @GodinaSkolovanja AND SkolskaGodina = @SkolskaGodina), DatumRodjenja = @DatumRodjenja, MestoRodjenja = @MestoRodjenja, OpstinaRodjenja = @OpstinaRodjenja, DrzavaRodjenja = @DrzavaRodjenja, ImeOca = @ImeOca, PrezimeOca = @PrezimeOca, KontaktTelefonOca = @KontaktTelefonOca, EmailOca = @EmailOca, ImeMajke = @ImeMajke, PrezimeMajke = @PrezimeMajke, KontaktTelefonMajke = @KontaktTelefonMajke, EmailMajke = @EmailMajke, LoginSifra = @LoginSifra
 		WHERE MaticniBroj = @MaticniBroj
 		RETURN 0
 	END
@@ -773,39 +828,7 @@ VALUES('Polugodiste');
 INSERT INTO eDnevnik.dbo.TipOcene
 (TipOcene)
 VALUES('Zakljucna');
-
-
-CREATE PROCEDURE dbo.OceneSELECT
-(@BrojPoStrani int = 20, @TrenutnaStrana int, @NazivPredmeta nvarchar(50), @ImeUcenika nvarchar(50), @ImeProfesora nvarchar(50), @GodinaSkolovanja int, @OdeljenjeBroj int)
-AS
-BEGIN TRY
-	SELECT U.Ime, U.Prezime, P.NazivPredmeta, O.Ocena, PR.ImeProfesora, O.TipOcene, O.DatumOcene 
-	FROM dbo.Ucenici AS U 
-	INNER JOIN dbo.Ocene AS O ON U.MaticniBroj = O.MaticniBroj
-	INNER JOIN  dbo.Predmeti AS P ON O.PredmetID = P.PredmetID
-	INNER JOIN dbo.DodeljeniProfesori AS DP ON DP.PredmetID = P.PredmetID
-	INNER JOIN dbo.Profesori AS PR ON DP.ProfesorID = PR.ProfesorID
-	INNER JOIN dbo.Odeljenja AS OD ON OD.OdeljenjeID = DP.OdeljenjeID
-	INNER JOIN dbo.Godine AS G ON G.GodinaID = OD.GodinaID
-	WHERE
-	(@NazivPredmeta IS NULL OR @NazivPredmeta = P.NazivPredmeta) AND
-	(@ImeUcenika IS NULL OR @ImeUcenika = CONCAT(U.Ime, ' ',  U.Prezime) OR @ImeUcenika = CONCAT(U.Prezime, ' ', U.Ime) OR @ImeUcenika = U.Prezime OR @ImeUcenika = U.Ime) AND
-	(@ImeProfesora IS NULL OR @ImeProfesora = PR.ImeProfesora) AND
-	(@GodinaSkolovanja IS NULL OR @GodinaSkolovanja = G.GodinaSkolovanja) AND
-	(@OdeljenjeBroj IS NULL OR @OdeljenjeBroj = OD.OdeljenjeBroj)
-
-	ORDER BY P.NazivPredmeta
-	OFFSET (@TrenutnaStrana * @BrojPoStrani) ROWS
-         FETCH NEXT @BrojPoStrani ROWS ONLY
-
-	RETURN 0
-END TRY
-BEGIN CATCH
-	RETURN @@ERROR
-END CATCH
 GO
-	
-
 
 
 
