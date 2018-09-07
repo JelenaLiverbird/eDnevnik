@@ -520,7 +520,7 @@ CREATE PROCEDURE dbo.LoginKorisnika
 	ELSE
 	IF EXISTS (SELECT 1 FROM dbo.Ucenici WHERE JMBG = @Korisnik AND LoginSifra = @LoginSifra)
 	BEGIN
-		SELECT @MaticniBroj = @MaticniBroj
+		SELECT @MaticniBroj = MaticniBroj
 		FROM dbo.Ucenici
 		WHERE JMBG = @Korisnik AND LoginSifra = @LoginSifra
 		RETURN 0
