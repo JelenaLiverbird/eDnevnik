@@ -375,6 +375,43 @@ namespace eDnevnikDLL
             }
         }
         #endregion
+
+
+        public static int LoginKorisnika(string korisnik, string korisnikSifra, ref int profID , ref string maticniID )
+        {
+            try
+            {
+                SqlCommand Cm = new SqlCommand();
+                Cm.Connection = Cn;
+                Cm.CommandType = CommandType.StoredProcedure;
+                Cm.CommandText = "dbo.LoginKorisnika";
+
+                int Ret = 99;
+
+
+
+                Cm.Parameters.Add(new SqlParameter("@Korisnik", SqlDbType.NVarChar, 255, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, korisnik));
+                Cm.Parameters.Add(new SqlParameter("@LoginSifra", SqlDbType.NVarChar, 4000, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, korisnikSifra));
+                Cm.Parameters.Add(new SqlParameter("@ProfesorID", SqlDbType.Int, 4, ParameterDirection.Output , false, 0, 0, "", DataRowVersion.Current, profID));
+                Cm.Parameters.Add(new SqlParameter("@MaticniBroj", SqlDbType.NVarChar, 10, ParameterDirection.Output, false, 0, 0, "", DataRowVersion.Current, maticniID));
+                Cm.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int, 4, ParameterDirection.ReturnValue, true, 0, 0, "", DataRowVersion.Current, Ret));
+
+                Cn.Open();
+                Cm.ExecuteNonQuery();
+                Cn.Close();
+
+
+                Ret = (int)Cm.Parameters["@RETURN_VALUE"].Value;
+                return Ret;
+
+            }
+            catch (Exception ex)
+            {
+                Cn.Close();
+                Console.WriteLine(ex.Message);
+                return 99;
+            }
+        }
     }
 
 
