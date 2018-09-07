@@ -280,6 +280,54 @@ namespace eDnevnikDLL
                 return 99;
             }
         }
+
+        public static PrikazOcena SelectOcena(int TrenutnaStrana, string NazivPredmeta, string ImeUcenika, string ImeProfesora, int GodinaSkolovanja, int OdeljenjeBroj)
+        {
+            try
+            {
+                SqlCommand Cm = new SqlCommand();
+                Cm.Connection = Cn;
+                Cm.CommandType = CommandType.StoredProcedure;
+                Cm.CommandText = "dbo.oceneSELECT";
+
+
+
+                Cm.Parameters.Add(new SqlParameter("@TrenutnaStrana", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, TrenutnaStrana));
+                Cm.Parameters.Add(new SqlParameter("@NazivPredmeta", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, NazivPredmeta));
+                Cm.Parameters.Add(new SqlParameter("@ImeUcenika", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, ImeUcenika));
+                Cm.Parameters.Add(new SqlParameter("@ImeProfesora", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, ImeProfesora));
+                Cm.Parameters.Add(new SqlParameter("@GodinaSkolovanja", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, GodinaSkolovanja));
+                Cm.Parameters.Add(new SqlParameter("@OdeljenjeBroj", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, OdeljenjeBroj));
+
+                Cn.Open();
+                PrikazOcena PO = new PrikazOcena();
+                PO.Ocene = new List<Ocena>();
+                SqlDataReader Dr = Cm.ExecuteReader();
+                while (Dr.Read())
+                {
+                    PO.Ime = Dr["Ime"].ToString();
+                    PO.Prezime = Dr["Prezime"].ToString();
+                    PO.NazivPredmeta = Dr["NazivPredmeta"].ToString();
+
+                    Ocena ocena = new Ocena();
+                    ocena.OcenaVrednost = Convert.ToInt32(Dr["Ocena"]);
+                    ocena.ImeProfesora = Dr["ImeProfesora"].ToString();
+                    ocena.TipOcene = Dr["TipOcene"].ToString();
+                    ocena.DatumOcene = Convert.ToDateTime(Dr["DatumOcene"]);
+                    PO.Ocene.Add(ocena);
+                }
+                Cn.Close();
+
+
+                //Ret = (int)Cm.Parameters["@RETURN_VALUE"].Value;
+                return null;
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
         #endregion
 
         #region UceniciCRUD
@@ -447,7 +495,18 @@ namespace eDnevnikDLL
         public string MaticniBroj { get; set; }
         public int ProfesorID { get; set; }
         public int PredmetID { get; set; }
-        
+
+        public DateTime DatumOcene { get; set; }
+        public string ImeProfesora { get; set; }
+    }
+
+    public class PrikazOcena
+    {
+        //U.Ime, U.Prezime, P.NazivPredmeta, O.Ocena, PR.ImeProfesora, O.TipOcene, O.DatumOcene 
+        public string Ime { get; set; }
+        public string Prezime { get; set; }
+        public string NazivPredmeta { get; set; }
+        public List<Ocena> Ocene { get; set; }
     }
 
     public class Ucenik

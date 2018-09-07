@@ -775,7 +775,36 @@ INSERT INTO eDnevnik.dbo.TipOcene
 VALUES('Zakljucna');
 
 
+CREATE PROCEDURE dbo.OceneSELECT
+(@BrojPoStrani int = 20, @TrenutnaStrana int, @NazivPredmeta nvarchar(50), @ImeUcenika nvarchar(50), @ImeProfesora nvarchar(50), @GodinaSkolovanja int, @OdeljenjeBroj int)
+AS
+BEGIN TRY
+	SELECT U.Ime, U.Prezime, P.NazivPredmeta, O.Ocena, PR.ImeProfesora, O.TipOcene, O.DatumOcene 
+	FROM dbo.Ucenici AS U 
+	INNER JOIN dbo.Ocene AS O ON U.MaticniBroj = O.MaticniBroj
+	INNER JOIN  dbo.Predmeti AS P ON O.PredmetID = P.PredmetID
+	INNER JOIN dbo.DodeljeniProfesori AS DP ON DP.PredmetID = P.PredmetID
+	INNER JOIN dbo.Profesori AS PR ON DP.ProfesorID = PR.ProfesorID
+	INNER JOIN dbo.Odeljenja AS OD ON OD.OdeljenjeID = DP.OdeljenjeID
+	INNER JOIN dbo.Godine AS G ON G.GodinaID = OD.GodinaID
+	WHERE
+	(@NazivPredmeta IS NULL OR @NazivPredmeta = P.NazivPredmeta) AND
+	(@ImeUcenika IS NULL OR @ImeUcenika = CONCAT(U.Ime, ' ',  U.Prezime) OR @ImeUcenika = CONCAT(U.Prezime, ' ', U.Ime) OR @ImeUcenika = U.Prezime OR @ImeUcenika = U.Ime) AND
+	(@ImeProfesora IS NULL OR @ImeProfesora = PR.ImeProfesora) AND
+	(@GodinaSkolovanja IS NULL OR @GodinaSkolovanja = G.GodinaSkolovanja) AND
+	(@OdeljenjeBroj IS NULL OR @OdeljenjeBroj = OD.OdeljenjeBroj)
 
+	ORDER BY P.NazivPredmeta
+	OFFSET (@TrenutnaStrana * @BrojPoStrani) ROWS
+         FETCH NEXT @BrojPoStrani ROWS ONLY
+
+	RETURN 0
+END TRY
+BEGIN CATCH
+	RETURN @@ERROR
+END CATCH
+GO
+	
 
 
 
