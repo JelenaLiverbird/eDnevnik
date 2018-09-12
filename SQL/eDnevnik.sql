@@ -259,7 +259,7 @@ CREATE TABLE dbo.SesijeKorisnika
 (
 	SesijeID int IDENTITY NOT NULL,
 	VremeLogin datetime NOT NULL,
-	VremeLogout datetime NOT NULL,
+	VremeLogout datetime NULL,
 	ProfesorID int NOT NULL
 )
 GO
@@ -436,7 +436,7 @@ BEGIN TRY
 	SELECT U.Ime, U.Prezime, P.NazivPredmeta, O.Ocena, PR.ImeProfesora, O.TipOcene, O.DatumOcene 
 	FROM dbo.Ucenici AS U 
 	INNER JOIN dbo.Ocene AS O ON U.MaticniBroj = O.MaticniBroj
-	INNER JOIN  dbo.Predmeti AS P ON O.PredmetID = P.PredmetID
+	INNER JOIN dbo.Predmeti AS P ON O.PredmetID = P.PredmetID
 	INNER JOIN dbo.DodeljeniProfesori AS DP ON DP.PredmetID = P.PredmetID
 	INNER JOIN dbo.Profesori AS PR ON DP.ProfesorID = PR.ProfesorID
 	INNER JOIN dbo.Odeljenja AS OD ON OD.OdeljenjeID = DP.OdeljenjeID
@@ -489,6 +489,7 @@ BEGIN CATCH
 	RETURN @@ERROR
 END CATCH
 GO
+
 
 --- Procedura za menjanje profesora ---
 
@@ -588,8 +589,8 @@ GO
 
 --- Procesura za dodavanje ucenika ---
 
-CREATE PROCEDURE dbo.uceniciINSERT
-(@MaticniBroj nvarchar(10), @Ime nvarchar(50), @Prezime nvarchar(50), @JMBG nvarchar(50), @BrojOdeljenja int, @GodinaSkolovanja int, @SkolskaGodina int, @DatumRodjenja date, @MestoRodjenja nvarchar(50), @OpstinaRodjenja nvarchar(50), @DrzavaRodjenja nvarchar(50), @KontaktTelefonUcenika nvarchar(50), @EmailUcenika nvarchar(255), @ImeOca nvarchar(50), @PrezimeOca nvarchar(50), @KontaktTelefonOca nvarchar(50), @EmailOca nvarchar(255), @ImeMajke nvarchar(50), @PrezimeMajke nvarchar (50), @KontaktTelefonMajke nvarchar(50), @EmailMajke nvarchar(255), @LoginSifra nvarchar(max), @IzborniPredmet int)
+alter PROCEDURE dbo.uceniciINSERT
+(@MaticniBroj nvarchar(10), @Ime nvarchar(50), @Prezime nvarchar(50), @JMBG nvarchar(50), @BrojOdeljenja int, @GodinaSkolovanja int, @SkolskaGodina int, @DatumRodjenja date, @MestoRodjenja nvarchar(50), @OpstinaRodjenja nvarchar(50), @DrzavaRodjenja nvarchar(50), @KontaktTelefonUcenika nvarchar(50), @EmailUcenika nvarchar(255), @ImeOca nvarchar(50), @PrezimeOca nvarchar(50), @KontaktTelefonOca nvarchar(50), @EmailOca nvarchar(255), @ImeMajke nvarchar(50), @PrezimeMajke nvarchar (50), @KontaktTelefonMajke nvarchar(50), @EmailMajke nvarchar(255), @LoginSifra nvarchar(max), @IzborniPredmet bit)
 AS
 BEGIN TRY
 	INSERT INTO dbo.Ucenici
@@ -597,19 +598,21 @@ BEGIN TRY
 	VALUES
 	(@MaticniBroj, @Ime, @Prezime, @JMBG, (SELECT OdeljenjeID FROM dbo.Odeljenja INNER JOIN dbo.Godine ON dbo.Odeljenja.GodinaID = dbo.Godine.GodinaID WHERE BrojOdeljenja = @BrojOdeljenja AND dbo.Godine.GodinaSkolovanja = @GodinaSkolovanja AND SkolskaGodina = @SkolskaGodina), @DatumRodjenja, @MestoRodjenja, @OpstinaRodjenja, @DrzavaRodjenja, @KontaktTelefonUcenika, @EmailUcenika, @ImeOca, @PrezimeOca, @KontaktTelefonOca, @EmailOca, @ImeMajke, @PrezimeMajke, @KontaktTelefonMajke, @EmailMajke, @LoginSifra)
 
-	INSERT INTO dbo.DodeljeniPredmeti
-	(MaticniBroj, PredmetID)
-	VALUES
-	(
-		@MaticniBroj, (SELECT * FROM Predmeti ) -------> NIJE ZAVRSENO!!!!
-	)
-	
+	IF (@IzborniPredmet = 0)
+		INSERT INTO dbo.DodeljeniPredmeti
+		(MaticniBroj, PredmetID)
+		SELECT @MaticniBroj, PredmetID FROM dbo.Predmeti WHERE NazivPredmeta != N'Matematika'
+	ELSE
+		INSERT INTO dbo.DodeljeniPredmeti
+		(MaticniBroj, PredmetID)
+		SELECT @MaticniBroj, PredmetID FROM dbo.Predmeti WHERE NazivPredmeta != N'Engleski'
 
 END TRY
 BEGIN CATCH
 	RETURN @@ERROR
 END CATCH
 GO
+
 
 --- Procedura za menjanje ucenika ---
 
@@ -796,14 +799,14 @@ SELECT * FROM Ucenici ORDER BY OdeljenjeID
 
 --- Punjenje test podacima Predmete ---
 
-INSERT INTO eDnevnik.dbo.Predmeti (Redosled, NazivPredmeta , ProfesorID)
-VALUES ( 100 , N'Srpski' ,  (SELECT TOP 1 ProfesorID FROM dbo.Profesori ORDER BY NEWID() )  ) --Ubacujem random profesora
-INSERT INTO eDnevnik.dbo.Predmeti (Redosled, NazivPredmeta , ProfesorID)
-VALUES ( 200 , N'Matematika' ,  (SELECT TOP 1 ProfesorID FROM dbo.Profesori ORDER BY NEWID() )  ) --Ubacujem random profesora
-INSERT INTO eDnevnik.dbo.Predmeti (Redosled, NazivPredmeta , ProfesorID)
-VALUES ( 300 , N'Engleski' ,  (SELECT TOP 1 ProfesorID FROM dbo.Profesori ORDER BY NEWID() )  ) --Ubacujem random profesora
-INSERT INTO eDnevnik.dbo.Predmeti (Redosled, NazivPredmeta , ProfesorID)
-VALUES ( 400 , N'Filozofija' ,  (SELECT TOP 1 ProfesorID FROM dbo.Profesori ORDER BY NEWID() )  ) --Ubacujem random profesora
+INSERT INTO eDnevnik.dbo.Predmeti (Redosled, NazivPredmeta , Godina)
+VALUES ( 100 , N'Srpski' , 1) --(SELECT TOP 1 ProfesorID FROM dbo.Profesori ORDER BY NEWID() )  ) --Ubacujem random profesora
+INSERT INTO eDnevnik.dbo.Predmeti (Redosled, NazivPredmeta , Godina)
+VALUES ( 200 , N'Matematika' , 1)  --(SELECT TOP 1 ProfesorID FROM dbo.Profesori ORDER BY NEWID() )  ) --Ubacujem random profesora
+INSERT INTO eDnevnik.dbo.Predmeti (Redosled, NazivPredmeta , Godina)
+VALUES ( 300 , N'Engleski' ,  1) --(SELECT TOP 1 ProfesorID FROM dbo.Profesori ORDER BY NEWID() )  ) --Ubacujem random profesora
+INSERT INTO eDnevnik.dbo.Predmeti (Redosled, NazivPredmeta , Godina)
+VALUES ( 400 , N'Filozofija' , 4) --(SELECT TOP 1 ProfesorID FROM dbo.Profesori ORDER BY NEWID() )  ) --Ubacujem random profesora
 
 
 
@@ -811,23 +814,23 @@ VALUES ( 400 , N'Filozofija' ,  (SELECT TOP 1 ProfesorID FROM dbo.Profesori ORDE
 
 INSERT INTO eDnevnik.dbo.TipOcene
 (TipOcene)
-VALUES('Usmeni');
+VALUES('Usmeni odgovor');
 
 INSERT INTO eDnevnik.dbo.TipOcene
 (TipOcene)
-VALUES('Pismeni');
+VALUES('Pismeni zadatak');
 
 INSERT INTO eDnevnik.dbo.TipOcene
 (TipOcene)
-VALUES('Kontrolni');
+VALUES('Kontrolna vezba');
 
 INSERT INTO eDnevnik.dbo.TipOcene
 (TipOcene)
-VALUES('Polugodiste');
+VALUES('Aktivnost na casu');
 
 INSERT INTO eDnevnik.dbo.TipOcene
 (TipOcene)
-VALUES('Zakljucna');
+VALUES('Drugo');
 GO
 
 
