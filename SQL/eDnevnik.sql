@@ -429,6 +429,8 @@ BEGIN CATCH
 END CATCH
 GO
 
+--- Procedura za izbor ocene ---
+
 CREATE PROCEDURE dbo.OceneSELECT
 (@BrojPoStrani int = 20, @TrenutnaStrana int, @NazivPredmeta nvarchar(50), @ImeUcenika nvarchar(50), @ImeProfesora nvarchar(50), @GodinaSkolovanja int, @OdeljenjeBroj int)
 AS
@@ -466,7 +468,7 @@ GO
 --- Procedura za dodavanje profesora ---
 
 CREATE PROCEDURE dbo.profesoriINSERT
-(@ImeProfesora nvarchar(50), @Email nvarchar(255), @KontaktTelefon nvarchar(50), @LoginSifra nvarchar(max), @Admin bit, @NazivPredmeta nvarchar(100), @BrojOdeljenja int, @GodinaSkolovanja int, @SkolskaGodina int)
+(@ImeProfesora nvarchar(50), @Email nvarchar(255), @KontaktTelefon nvarchar(50), @LoginSifra nvarchar(max), @Admin bit = 0, @NazivPredmeta nvarchar(100), @BrojOdeljenja int, @GodinaSkolovanja int, @SkolskaGodina int)
 AS
 BEGIN TRY
 	INSERT INTO dbo.Profesori
@@ -478,7 +480,7 @@ BEGIN TRY
 	(ProfesorID, PredmetID, OdeljenjeID)
 	VALUES	
 	(	@@IDENTITY, 
-		(SELECT PredmetID FROM dbo.Predmeti where NazivPredmeta = @NazivPredmeta),
+		(SELECT PredmetID FROM dbo.Predmeti WHERE NazivPredmeta = @NazivPredmeta AND Godina = @GodinaSkolovanja),
 		(SELECT OdeljenjeID FROM dbo.Odeljenja
 		INNER JOIN dbo.Godine 
 		ON dbo.Odeljenja.GodinaID = dbo.Godine.GodinaID 
@@ -589,7 +591,7 @@ GO
 
 --- Procesura za dodavanje ucenika ---
 
-alter PROCEDURE dbo.uceniciINSERT
+CREATE PROCEDURE dbo.uceniciINSERT
 (@MaticniBroj nvarchar(10), @Ime nvarchar(50), @Prezime nvarchar(50), @JMBG nvarchar(50), @BrojOdeljenja int, @GodinaSkolovanja int, @SkolskaGodina int, @DatumRodjenja date, @MestoRodjenja nvarchar(50), @OpstinaRodjenja nvarchar(50), @DrzavaRodjenja nvarchar(50), @KontaktTelefonUcenika nvarchar(50), @EmailUcenika nvarchar(255), @ImeOca nvarchar(50), @PrezimeOca nvarchar(50), @KontaktTelefonOca nvarchar(50), @EmailOca nvarchar(255), @ImeMajke nvarchar(50), @PrezimeMajke nvarchar (50), @KontaktTelefonMajke nvarchar(50), @EmailMajke nvarchar(255), @LoginSifra nvarchar(max), @IzborniPredmet bit)
 AS
 BEGIN TRY

@@ -17,15 +17,15 @@ namespace eDnevnikDLL
         public static int DodavanjeProfesora(Profesor dodati) //Da li ce mo da vracamo i poruku ili ne???
         {
             //Validate first
-            var responseFromValidator = Check.DataAnnotation.ValidateEntity<Profesor>(dodati);
-            if (responseFromValidator.HasError)
-            {
-                /*foreach (var error in responseFromValidator.ValidationErrors)
-                {
-                    whatError = whatError + error + System.Environment.NewLine;           <<< ???
-                }*/
-                return 99;
-            }
+            //var responseFromValidator = Check.DataAnnotation.ValidateEntity<Profesor>(dodati);
+            //if (responseFromValidator.HasError)
+            //{
+            //    /*foreach (var error in responseFromValidator.ValidationErrors)
+            //    {
+            //        whatError = whatError + error + System.Environment.NewLine;           <<< ???
+            //    }*/
+            //    return 99;
+            //}
 
 
             try
@@ -42,6 +42,11 @@ namespace eDnevnikDLL
                 Cm.Parameters.Add(new SqlParameter("@KontaktTelefon", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, dodati.KontaktTelefon));
                 Cm.Parameters.Add(new SqlParameter("@LoginSifra", SqlDbType.NVarChar, 4000, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, dodati.LoginSifra));
                 Cm.Parameters.Add(new SqlParameter("@Admin", SqlDbType.Bit, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, dodati.Admin));
+                Cm.Parameters.Add(new SqlParameter("@NazivPredmeta", SqlDbType.NVarChar, 100, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, dodati.NazivPredmeta));
+                Cm.Parameters.Add(new SqlParameter("@BrojOdeljenja", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, dodati.BrojOdeljenja));
+                Cm.Parameters.Add(new SqlParameter("@GodinaSkolovanja", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, dodati.GodinaSkolovanja));
+                Cm.Parameters.Add(new SqlParameter("@SkolskaGodina", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, dodati.SkolskaGodina));
+                Cm.Parameters.Add(new SqlParameter("@ProfesorID", SqlDbType.Int, 4, ParameterDirection.Output, false, 0, 0, "", DataRowVersion.Current, null));
                 Cm.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int, 4, ParameterDirection.ReturnValue, true, 0, 0, "", DataRowVersion.Current, Ret));
 
                 Cn.Open();
@@ -74,6 +79,7 @@ namespace eDnevnikDLL
                 Cm.Parameters.Add(new SqlParameter("@KontaktTelefon", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, izmeniti.KontaktTelefon));
                 Cm.Parameters.Add(new SqlParameter("@LoginSifra", SqlDbType.NVarChar, 4000, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, izmeniti.LoginSifra));
                 Cm.Parameters.Add(new SqlParameter("@Admin", SqlDbType.Bit, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, izmeniti.Admin));
+                Cm.Parameters.Add(new SqlParameter("@NazivPredmeta", SqlDbType.Bit, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, izmeniti.NazivPredmeta));
                 Cm.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int, 4, ParameterDirection.ReturnValue, true, 0, 0, "", DataRowVersion.Current, Ret));
 
                 Cn.Open();
@@ -476,6 +482,10 @@ namespace eDnevnikDLL
         public string KontaktTelefon { get; set; }
         public string LoginSifra { get; set; }
         public bool Admin { get; set; }
+        public string NazivPredmeta { get; set; }
+        public int BrojOdeljenja { get; set; }
+        public int GodinaSkolovanja { get; set; }
+        public int SkolskaGodina { get; set; }
     }
 
     public class Odeljenja
