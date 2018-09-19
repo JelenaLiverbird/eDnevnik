@@ -464,6 +464,18 @@ GO
 
 /***** STORE PROCEDURE ZA PROFESORE *****/
 
+--- Procedura za prikaz profesora ---
+
+CREATE PROCEDURE dbo.profesoriPrikaz
+AS
+BEGIN TRY
+	SELECT * FROM dbo.Profesori ORDER BY ImeProfesora
+	RETURN 0
+END TRY
+BEGIN CATCH
+	RETURN @@ERROR
+END CATCH
+GO
 
 --- Procedura za dodavanje profesora ---
 
@@ -715,6 +727,15 @@ END CATCH
 GO
 
 
+--- comobox ---
+
+CREATE PROCEDURE dbo.IzborPredmeta
+AS
+SELECT DISTINCT NazivPredmeta
+FROM dbo.Predmeti
+ORDER BY NazivPredmeta
+GO
+
 
 
 /**************************** PUNJENJE TABELA VREDNOSTIMA ****************************/
@@ -798,19 +819,6 @@ WHILE @Br < 30
 END
 
 SELECT * FROM Ucenici ORDER BY OdeljenjeID
-
-
---- Punjenje test podacima Predmete ---
-
-INSERT INTO eDnevnik.dbo.Predmeti (Redosled, NazivPredmeta , Godina)
-VALUES ( 100 , N'Srpski' , 1) --(SELECT TOP 1 ProfesorID FROM dbo.Profesori ORDER BY NEWID() )  ) --Ubacujem random profesora
-INSERT INTO eDnevnik.dbo.Predmeti (Redosled, NazivPredmeta , Godina)
-VALUES ( 200 , N'Matematika' , 1)  --(SELECT TOP 1 ProfesorID FROM dbo.Profesori ORDER BY NEWID() )  ) --Ubacujem random profesora
-INSERT INTO eDnevnik.dbo.Predmeti (Redosled, NazivPredmeta , Godina)
-VALUES ( 300 , N'Engleski' ,  1) --(SELECT TOP 1 ProfesorID FROM dbo.Profesori ORDER BY NEWID() )  ) --Ubacujem random profesora
-INSERT INTO eDnevnik.dbo.Predmeti (Redosled, NazivPredmeta , Godina)
-VALUES ( 400 , N'Filozofija' , 4) --(SELECT TOP 1 ProfesorID FROM dbo.Profesori ORDER BY NEWID() )  ) --Ubacujem random profesora
-
 
 
 --- Punjenje test podacima TipOcena ---

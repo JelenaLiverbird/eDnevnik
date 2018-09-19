@@ -14,20 +14,67 @@ namespace eDnevnikDLL
         static SqlConnection Cn = new SqlConnection("server=.;integrated security=true;database=eDnevnik");
 
         #region ProfesorCRUD
-        public static int DodavanjeProfesora(Profesor dodati) //Da li ce mo da vracamo i poruku ili ne???
+
+        public static DataTable PrikazProfesora()
         {
-            //Validate first
-            //var responseFromValidator = Check.DataAnnotation.ValidateEntity<Profesor>(dodati);
-            //if (responseFromValidator.HasError)
-            //{
-            //    /*foreach (var error in responseFromValidator.ValidationErrors)
-            //    {
-            //        whatError = whatError + error + System.Environment.NewLine;           <<< ???
-            //    }*/
-            //    return 99;
-            //}
+            try
+            {
+                SqlCommand Cm = new SqlCommand();
+                Cm.Connection = Cn;
+                Cm.CommandType = CommandType.StoredProcedure;
+                Cm.CommandText = "dbo.profesoriPrikaz";
+
+                Cn.Open();
+                SqlDataAdapter Da = new SqlDataAdapter();
+                Da.SelectCommand = Cm;
+
+                DataSet Ds = new DataSet();
+
+                Da.Fill(Ds);
+                return Ds.Tables[0];
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
 
+        //public static List<Profesor> PrikazProfesora()
+        //{
+        //    try
+        //    {
+        //        SqlCommand Cm = new SqlCommand();
+        //        Cm.Connection = Cn;
+        //        Cm.CommandType = CommandType.StoredProcedure;
+        //        Cm.CommandText = "skola.profesoriPrikaz";
+
+        //        Cn.Open();
+        //        List<Profesor> profesori = new List<Profesor>();
+
+        //        SqlDataReader dR = Cm.ExecuteReader();
+
+        //        while (dR.Read())
+        //        {
+        //            Profesor p = new Profesor(dR.GetInt32(0), dR.GetString(1), dR.GetString(2), dR.GetString(3), dR.GetString(4), dR.GetBoolean(5));
+        //            profesori.Add(p);
+        //        }
+
+        //        Cn.Close();
+
+        //        Console.WriteLine(profesori.Count);
+        //        return profesori;
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Cn.Close();
+        //        Console.WriteLine(ex);
+        //        return null;
+        //    }
+        //}
+        public static int DodavanjeProfesora(Profesor dodati)
+        {
             try
             {
                 SqlCommand Cm = new SqlCommand();
@@ -511,7 +558,15 @@ namespace eDnevnikDLL
         public int BrojOdeljenja { get; set; }
         public int GodinaSkolovanja { get; set; }
         public int SkolskaGodina { get; set; }
+
+        public Profesor() { }
+
+        public Profesor(int _ProfesorID, string _ImeProfesora, string _Email, string _KontaktTelefon, string _LoginSifra, bool _Admin)
+        {
+            ProfesorID = _ProfesorID; ImeProfesora = _ImeProfesora; Email = _Email; KontaktTelefon = _KontaktTelefon; LoginSifra = _LoginSifra; Admin = _Admin;
+        }
     }
+
 
     public class Odeljenja
     {

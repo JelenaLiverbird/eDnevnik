@@ -30,7 +30,7 @@ namespace eDnevnikWeb
                 Session["Korisnik"] = Korisnik;
                 if (who == 3)
                 {
-                    Response.Redirect("eDnevnik.aspx");
+                    Response.Redirect("Admin.aspx");
                 }
                 else if (who == 2)
                 {
