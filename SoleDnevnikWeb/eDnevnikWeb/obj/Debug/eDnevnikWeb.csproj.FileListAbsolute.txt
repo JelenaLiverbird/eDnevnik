@@ -1,0 +1,176 @@
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\eDnevnikWeb.dll.config
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\eDnevnikWeb.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\eDnevnikWeb.pdb
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\csc.exe
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\csc.exe.config
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\csc.rsp
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\csi.exe
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\csi.exe.config
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\csi.rsp
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.Win32.Primitives.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.AppContext.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Console.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Diagnostics.Process.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.IO.Compression.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.IO.Pipes.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Security.Claims.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Threading.Thread.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.ValueTuple.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Xml.XPath.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\vbc.exe
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\vbc.exe.config
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\vbc.rsp
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\VBCSCompiler.exe
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\eDnevnikDLL.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\eDnevnikDLL.pdb
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\obj\Debug\eDnevnikWeb.csprojResolveAssemblyReference.cache
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\obj\Debug\eDnevnikWeb.csproj.CoreCompileInputs.cache
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\obj\Debug\eDnevnikWeb.csproj.CopyComplete
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\obj\Debug\eDnevnikWeb.dll
+C:\Users\korisnik\Desktop\SoleDnevnikWeb\eDnevnikWeb\obj\Debug\eDnevnikWeb.pdb
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\eDnevnikWeb.dll.config
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\eDnevnikWeb.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\eDnevnikWeb.pdb
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\csc.exe
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\csc.exe.config
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\csc.rsp
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\csi.exe
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\csi.exe.config
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\csi.rsp
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.Win32.Primitives.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.AppContext.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Console.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Diagnostics.Process.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.IO.Compression.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.IO.Pipes.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Security.Claims.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Threading.Thread.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.ValueTuple.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Xml.XPath.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\vbc.exe
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\vbc.exe.config
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\vbc.rsp
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\VBCSCompiler.exe
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\obj\Debug\eDnevnikWeb.csprojResolveAssemblyReference.cache
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\obj\Debug\eDnevnikWeb.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\obj\Debug\eDnevnikWeb.pdb
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\eDnevnikDLL.dll
+C:\Users\Obuka\Desktop\SoleDnevnikWeb\eDnevnikWeb\bin\eDnevnikDLL.pdb
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\eDnevnikWeb.dll.config
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\eDnevnikWeb.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\eDnevnikWeb.pdb
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\csc.exe
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\csc.exe.config
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\csc.rsp
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\csi.exe
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\csi.exe.config
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\csi.rsp
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\Microsoft.Win32.Primitives.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.AppContext.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Console.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Diagnostics.Process.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.IO.Compression.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.IO.Pipes.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Security.Claims.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Threading.Thread.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.ValueTuple.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Xml.XPath.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\vbc.exe
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\vbc.exe.config
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\vbc.rsp
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\VBCSCompiler.exe
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\eDnevnikDLL.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\eDnevnikDLL.pdb
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\obj\Debug\eDnevnikWeb.csprojResolveAssemblyReference.cache
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\obj\Debug\eDnevnikWeb.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikWeb\eDnevnikWeb\obj\Debug\eDnevnikWeb.pdb
