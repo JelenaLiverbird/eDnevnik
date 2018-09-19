@@ -46,7 +46,7 @@ namespace eDnevnikDLL
                 Cm.Parameters.Add(new SqlParameter("@BrojOdeljenja", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, dodati.BrojOdeljenja));
                 Cm.Parameters.Add(new SqlParameter("@GodinaSkolovanja", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, dodati.GodinaSkolovanja));
                 Cm.Parameters.Add(new SqlParameter("@SkolskaGodina", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, dodati.SkolskaGodina));
-                Cm.Parameters.Add(new SqlParameter("@ProfesorID", SqlDbType.Int, 4, ParameterDirection.Output, false, 0, 0, "", DataRowVersion.Current, null));
+                //Cm.Parameters.Add(new SqlParameter("@ProfesorID", SqlDbType.Int, 4, ParameterDirection.Output, false, 0, 0, "", DataRowVersion.Current, null));
                 Cm.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int, 4, ParameterDirection.ReturnValue, true, 0, 0, "", DataRowVersion.Current, Ret));
 
                 Cn.Open();
@@ -59,6 +59,7 @@ namespace eDnevnikDLL
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return 99;
             }
         }
@@ -431,7 +432,7 @@ namespace eDnevnikDLL
         #endregion
 
 
-        public static int LoginKorisnika(string korisnik, string korisnikSifra, ref int profID , ref string maticniID )
+        public static int LoginKorisnika(string korisnik, string korisnikSifra, ref int who, ref int whoID)
         {
             try
             {
@@ -441,21 +442,45 @@ namespace eDnevnikDLL
                 Cm.CommandText = "dbo.LoginKorisnika";
 
                 int Ret = 99;
-
+                int ProfesorID = 0;
+                string MaticniBroj = null;
+                bool admin = false;
 
 
                 Cm.Parameters.Add(new SqlParameter("@Korisnik", SqlDbType.NVarChar, 255, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, korisnik));
                 Cm.Parameters.Add(new SqlParameter("@LoginSifra", SqlDbType.NVarChar, 4000, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, korisnikSifra));
-                Cm.Parameters.Add(new SqlParameter("@ProfesorID", SqlDbType.Int, 4, ParameterDirection.Output , false, 0, 0, "", DataRowVersion.Current, profID));
-                Cm.Parameters.Add(new SqlParameter("@MaticniBroj", SqlDbType.NVarChar, 10, ParameterDirection.Output, false, 0, 0, "", DataRowVersion.Current, maticniID));
+                Cm.Parameters.Add(new SqlParameter("@ProfesorID", SqlDbType.Int, 4, ParameterDirection.Output , false, 0, 0, "", DataRowVersion.Current, ProfesorID));
+                Cm.Parameters.Add(new SqlParameter("@Admin", SqlDbType.Bit, 2, ParameterDirection.Output, false, 0, 0, "", DataRowVersion.Current, admin));
+                Cm.Parameters.Add(new SqlParameter("@MaticniBroj", SqlDbType.NVarChar, 10, ParameterDirection.Output, false, 0, 0, "", DataRowVersion.Current, MaticniBroj));
                 Cm.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int, 4, ParameterDirection.ReturnValue, true, 0, 0, "", DataRowVersion.Current, Ret));
 
                 Cn.Open();
                 Cm.ExecuteNonQuery();
+
+                ProfesorID = Cm.Parameters["@ProfesorID"].Value.GetType() == typeof(DBNull) ? ProfesorID = 0 : ProfesorID = (int)Cm.Parameters["@ProfesorID"].Value;   //(int)Cm.Parameters["@ProfesorID"].Value;
+                admin = Cm.Parameters["@Admin"].Value.GetType() == typeof(DBNull) ? admin = false : admin = (bool)Cm.Parameters["@Admin"].Value;//(bool)Cm.Parameters["@Admin"].Value;
+                MaticniBroj = Cm.Parameters["@MaticniBroj"].Value.GetType() == typeof(DBNull) ? MaticniBroj = null : MaticniBroj = (string)Cm.Parameters["@MaticniBroj"].Value;//(string)Cm.Parameters["@MaticniBroj"].Value;
+
                 Cn.Close();
 
-
                 Ret = (int)Cm.Parameters["@RETURN_VALUE"].Value;
+
+                if (ProfesorID != 0 && admin == true) //// 0-niko , 1-ucenik , 2-profesor, 3-admin
+                {
+                    who = 3; whoID = ProfesorID;
+                }
+                else if (ProfesorID != 0)
+                {
+                    who = 2; whoID = ProfesorID;
+                }
+                else if (MaticniBroj != null)
+                {
+                    who = 1; whoID = int.Parse(MaticniBroj);
+                }
+                else
+                {
+                    who = 0; whoID = 0;
+                }
                 return Ret;
 
             }

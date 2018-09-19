@@ -13,3 +13,8 @@ C:\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikDLL\eDnevnikDLL\bin\Debug\eDnevn
 C:\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikDLL\eDnevnikDLL\obj\Debug\eDnevnikDLL.csprojResolveAssemblyReference.cache
 C:\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikDLL\eDnevnikDLL\obj\Debug\eDnevnikDLL.dll
 C:\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikDLL\eDnevnikDLL\obj\Debug\eDnevnikDLL.pdb
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikDLL\eDnevnikDLL\bin\Debug\eDnevnikDLL.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikDLL\eDnevnikDLL\bin\Debug\eDnevnikDLL.pdb
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikDLL\eDnevnikDLL\obj\Debug\eDnevnikDLL.dll
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikDLL\eDnevnikDLL\obj\Debug\eDnevnikDLL.pdb
+C:\Users\Obuka\Desktop\Jelena - eDnevnik\Github\eDnevnik\SoleDnevnikDLL\eDnevnikDLL\obj\Debug\eDnevnikDLL.csprojResolveAssemblyReference.cache

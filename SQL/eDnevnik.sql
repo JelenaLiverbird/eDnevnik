@@ -467,7 +467,7 @@ GO
 
 --- Procedura za dodavanje profesora ---
 
-CREATE PROCEDURE dbo.profesoriINSERT
+alter PROCEDURE dbo.profesoriINSERT
 (@ImeProfesora nvarchar(50), @Email nvarchar(255), @KontaktTelefon nvarchar(50), @LoginSifra nvarchar(max), @Admin bit = 0, @NazivPredmeta nvarchar(100), @BrojOdeljenja int, @GodinaSkolovanja int, @SkolskaGodina int)
 AS
 BEGIN TRY
@@ -551,13 +551,14 @@ CREATE PROCEDURE dbo.LoginKorisnika
 	@Korisnik nvarchar(255),
 	@LoginSifra nvarchar(max),
 	@ProfesorID int OUTPUT,
+	@Admin bit OUTPUT,
 	@MaticniBroj nvarchar(10) OUTPUT
  )
  AS
  BEGIN TRY
 	IF EXISTS (SELECT 1 FROM dbo.Profesori WHERE Email = @Korisnik AND LoginSifra = @LoginSifra)
 	BEGIN 
-		SELECT @ProfesorID = ProfesorID
+		SELECT @ProfesorID = ProfesorID, @Admin = Admin
 		FROM dbo.Profesori
 		WHERE Email = @Korisnik AND LoginSifra = @LoginSifra
 		INSERT INTO dbo.SesijeKorisnika
