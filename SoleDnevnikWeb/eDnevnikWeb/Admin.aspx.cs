@@ -12,32 +12,32 @@ namespace eDnevnikWeb
 {
     public partial class eDnevnik : System.Web.UI.Page
     {
-        //SqlConnection sqlCon = new SqlConnection("server=.;integrated security=true;database=eDnevnik");
         
             
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-            //if (Session["Korisnik"] == null)
-            //{
-            //    Response.Redirect("Login.aspx");
-            //}
-            //else
-            //{
-                
-            //    DataTable Dt;
+            if (!IsPostBack)
+            {
+                btnDelete.Enabled = false;
+                FillGridView();
+            }
 
-                
-            //    Dt = eDnevnikDLL.VezaSBazom.PrikazProfesora();
-                              
-            //    gvProfesori.DataSource = Dt;
-            //    gvProfesori.DataBind();
-            //}
+            
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            
+            SqlConnection sqlCon = new SqlConnection("server=.;integrated security=true;database=eDnevnik");
+            if (sqlCon.State == ConnectionState.Closed)
+                sqlCon.Open();
+            SqlCommand sqlCmd = new SqlCommand("dbo.profesoriDELETE", sqlCon);
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            sqlCmd.Parameters.AddWithValue("@ProfesorID", Convert.ToInt32(hfProfesorID.Value));
+            sqlCmd.ExecuteNonQuery();
+            sqlCon.Close();
+            Clear();
+            FillGridView();
+            lblSuccessMessage.Text = "Успешно избрисано!";
         }
         public void Clear()
         {
@@ -50,43 +50,96 @@ namespace eDnevnikWeb
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Profesor prof = new Profesor();
-            prof.ImeProfesora = txtImeProfesora.Text;
-            prof.Email = txtEmail.Text;
-            prof.KontaktTelefon = txtKontaktTelefon.Text;
-            prof.LoginSifra = txtLoginSifra.Text;
-            prof.NazivPredmeta = ddPredmeti.Text;
-            prof.BrojOdeljenja = Int32.Parse(txtBrojOdeljenja.Text);
-            prof.GodinaSkolovanja = Int32.Parse(txtGodinaSkolovanja.Text);
-            prof.SkolskaGodina = Int32.Parse(txtSkolskaGodina.Text);
+            SqlConnection sqlCon = new SqlConnection("server=.;integrated security=true;database=eDnevnik");
+            if (sqlCon.State == ConnectionState.Closed)
+                sqlCon.Open();
+            SqlCommand sqlCmd = new SqlCommand("ProfesorINSERTOrUPDATE", sqlCon);
+            sqlCmd.CommandType = CommandType.StoredProcedure;
+            string ProfesorID = hfProfesorID.Value;
+            sqlCmd.Parameters.AddWithValue("@ProfesorID", (hfProfesorID.Value == "" ? 0 : Convert.ToInt32(hfProfesorID.Value)));
+            sqlCmd.Parameters.AddWithValue("@ImeProfesora", txtImeProfesora.Text.Trim());
+            sqlCmd.Parameters.AddWithValue("@Email", txtEmail.Text.Trim());
+            sqlCmd.Parameters.AddWithValue("@KontaktTelefon", txtKontaktTelefon.Text.Trim());
+            sqlCmd.Parameters.AddWithValue("@LoginSifra", txtLoginSifra.Text.Trim());
+            sqlCmd.Parameters.AddWithValue("@NazivPredmeta", ddPredmeti.Text.Trim());
+            sqlCmd.Parameters.AddWithValue("@BrojOdeljenja", Int32.Parse(txtBrojOdeljenja.Text));
+            sqlCmd.Parameters.AddWithValue("@GodinaSkolovanja", Int32.Parse(txtGodinaSkolovanja.Text));
+            sqlCmd.Parameters.AddWithValue("@SkolskaGodina", Int32.Parse(txtSkolskaGodina.Text));
+            sqlCmd.ExecuteNonQuery();
+            sqlCon.Close();
 
-            VezaSBazom.DodavanjeProfesora(prof);
+            //Profesor prof = new Profesor();
 
+            //prof.ImeProfesora = txtImeProfesora.Text;
+            //prof.Email = txtEmail.Text;
+            //prof.KontaktTelefon = txtKontaktTelefon.Text;
+            //prof.LoginSifra = txtLoginSifra.Text;
+            //prof.NazivPredmeta = ddPredmeti.Text;
+            //prof.BrojOdeljenja = Int32.Parse(txtBrojOdeljenja.Text);
+            //prof.GodinaSkolovanja = Int32.Parse(txtGodinaSkolovanja.Text);
+            //prof.SkolskaGodina = Int32.Parse(txtSkolskaGodina.Text);
+            //VezaSBazom.DodavanjeIIzmenaProfesora(prof);
             Clear();
+            if (ProfesorID == "")
+                lblSuccessMessage.Text = "Успешно сачувано!";
+            else
+                lblSuccessMessage.Text = "Успешно измењено!";
+            FillGridView();
+
+            //    Profesor prof = new Profesor();
+
+            //    VezaSBazom.DodavanjeProfesora(prof);
+
+            //    Clear();
+            //}
+
+        }
+        void FillGridView()
+        {
+            SqlConnection sqlCon = new SqlConnection("server=.;integrated security=true;database=eDnevnik");
+            if (sqlCon.State == ConnectionState.Closed)
+                sqlCon.Open();
+            SqlDataAdapter sqlDa = new SqlDataAdapter("dbo.PrikazProfesora", sqlCon);
+            sqlDa.SelectCommand.CommandType = CommandType.StoredProcedure;
+            DataTable dtbl = new DataTable();
+            sqlDa.Fill(dtbl);
+            sqlCon.Close();
+            gvProfesori.DataSource = dtbl;
+            gvProfesori.DataBind();
+
         }
 
         protected void lnk_OnClick(object sender, EventArgs e)
         {
-            SqlConnection sqlCon = new SqlConnection(@"server=.;integrated security=true;database=eDnevnik");
-            int profesorID = Convert.ToInt32((sender as LinkButton).CommandArgument);
+            SqlConnection sqlCon = new SqlConnection("server=.;integrated security=true;database=eDnevnik");
+            int ProfesorID = Convert.ToInt32((sender as LinkButton).CommandArgument);
             if (sqlCon.State == ConnectionState.Closed)
                 sqlCon.Open();
-            SqlDataAdapter sqlDa = new SqlDataAdapter("dbo.profesoriUPDATE", sqlCon);
+            SqlDataAdapter sqlDa = new SqlDataAdapter("dbo.PrikazProfesoraPoID", sqlCon);
             sqlDa.SelectCommand.CommandType = CommandType.StoredProcedure;
-            sqlDa.SelectCommand.Parameters.AddWithValue("@ProfesorID", profesorID);
+            sqlDa.SelectCommand.Parameters.AddWithValue("@ProfesorID", ProfesorID);
             DataTable dtbl = new DataTable();
             sqlDa.Fill(dtbl);
             sqlCon.Close();
             
-
-            hfProfesorID.Value = profesorID.ToString();
+            hfProfesorID.Value = ProfesorID.ToString();
             txtImeProfesora.Text = dtbl.Rows[0]["ImeProfesora"].ToString();
             txtEmail.Text = dtbl.Rows[0]["Email"].ToString();
             txtKontaktTelefon.Text = dtbl.Rows[0]["KontaktTelefon"].ToString();
             txtLoginSifra.Text = dtbl.Rows[0]["LoginSifra"].ToString();
+            ddPredmeti.Text = dtbl.Rows[0]["NazivPredmeta"].ToString();
+            txtBrojOdeljenja.Text = dtbl.Rows[0]["BrojOdeljenja"].ToString();
+            txtGodinaSkolovanja.Text = dtbl.Rows[0]["GodinaSkolovanja"].ToString();
+            txtSkolskaGodina.Text = dtbl.Rows[0]["SkolskaGodina"].ToString();
             btnSave.Text = "Update";
             btnDelete.Enabled = true;
+
             
+        }
+
+        protected void btnClear_Click(object sender, EventArgs e)
+        {
+            Clear();
         }
     }
 }

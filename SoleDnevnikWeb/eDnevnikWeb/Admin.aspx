@@ -82,49 +82,54 @@
                     </td>
                     <td colspan="2">
                         <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click"/>
-                        <asp:Button ID="btnUpdate" runat="server" Text="Update" />
                         <asp:Button ID="btnDelete" runat="server" Text="Delete" OnClick="btnDelete_Click" />
+                        <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" />
                     </td>
                 </tr>
                 <tr>
                     <td>
                     </td>
                     <td colspan="2">
-                        <asp:Label ID="lblSuccessMessage" runat="server" Text=""></asp:Label>
+                        <asp:Label ID="lblSuccessMessage" runat="server" ForeColor="#009933"></asp:Label>
                     </td>
                 </tr>
                 <tr>
                     <td>
                     </td>
                     <td colspan="2">
-                        <asp:Label ID="lblErrorMessage" runat="server" Text=""></asp:Label>
+                        <asp:Label ID="lblErrorMessage" runat="server" ForeColor="#CC0000"></asp:Label>
                     </td>
                 </tr>
             </table>
             <br />
-            <asp:GridView ID="gvProfesori" runat="server" BackColor="White" BorderColor="White" BorderStyle="Ridge" BorderWidth="2px" CellPadding="3" CellSpacing="1" GridLines="None" AutoGenerateColumns="False" DataSourceID="SqlDataSource2" AllowPaging="True" AllowSorting="True" Width="857px"  >
+            <asp:GridView ID="gvProfesori" runat="server" CellPadding="4" GridLines="None" AutoGenerateColumns="False" AllowPaging="True" AllowSorting="True" Width="857px" ForeColor="#333333"  >
+                <AlternatingRowStyle BackColor="White" />
                 <Columns>
-                    <asp:BoundField DataField="ImeProfesora" HeaderText="Ime Profesora" SortExpression="ImeProfesora" />
-                    <asp:BoundField DataField="Email" HeaderText="Email" SortExpression="Email" />
-                    <asp:BoundField DataField="KontaktTelefon" HeaderText="Kontakt Telefon" SortExpression="KontaktTelefon" />
-                    <asp:BoundField DataField="LoginSifra" HeaderText="Login Sifra" SortExpression="LoginSifra" />
-                    <asp:TemplateField>
+                <asp:BoundField DataField="ImeProfesora" HeaderText="Име професора" />
+                <asp:BoundField DataField="Email" HeaderText="Мејл" />
+                <asp:BoundField DataField="KontaktTelefon" HeaderText="Контакт телефон" />
+                <asp:BoundField DataField="LoginSifra" HeaderText="Логин шифра" />
+                <asp:BoundField DataField="NazivPredmeta" HeaderText="Naziv predmeta" />
+                <asp:BoundField DataField="BrojOdeljenja" HeaderText="Broj Odeljenja" />
+                <asp:BoundField DataField="GodinaSkolovanja" HeaderText="Godina Skolovanja" />
+                <asp:BoundField DataField="SkolskaGodina" HeaderText="Skolska Godina" />
+                <asp:TemplateField>
                     <ItemTemplate>
-                        <asp:LinkButton ID="lnkView" runat="server" CommandArgument='<%# Eval("profesorID") %>' OnClick="lnk_OnClick">View</asp:LinkButton>
+                        <asp:LinkButton ID="lnkView" runat="server" CommandArgument='<%# Eval("ProfesorID") %>' OnClick="lnk_OnClick">View</asp:LinkButton>
                     </ItemTemplate>
                 </asp:TemplateField>
-                </Columns>
-                <FooterStyle BackColor="#C6C3C6" ForeColor="Black" />
-                <HeaderStyle BackColor="#4A3C8C" Font-Bold="True" ForeColor="#E7E7FF" />
-                <PagerStyle BackColor="#C6C3C6" ForeColor="Black" HorizontalAlign="Right" />
-                <RowStyle BackColor="#DEDFDE" ForeColor="Black" />
-                <SelectedRowStyle BackColor="#9471DE" Font-Bold="True" ForeColor="White" />
-                <SortedAscendingCellStyle BackColor="#F1F1F1" />
-                <SortedAscendingHeaderStyle BackColor="#594B9C" />
-                <SortedDescendingCellStyle BackColor="#CAC9C9" />
-                <SortedDescendingHeaderStyle BackColor="#33276A" />
+            </Columns>
+                <EditRowStyle BackColor="#7C6F57" />
+                <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+                <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                <RowStyle BackColor="#E3EAEB" />
+                <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                <SortedAscendingHeaderStyle BackColor="#246B61" />
+                <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                <SortedDescendingHeaderStyle BackColor="#15524A" />
             </asp:GridView>
-            <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:eDnevnikConnectionString %>" SelectCommand="SELECT [ImeProfesora], [Email], [KontaktTelefon], [LoginSifra] FROM [Profesori]"></asp:SqlDataSource>
         </div>
     </form>
 </body>

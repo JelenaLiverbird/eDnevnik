@@ -40,39 +40,6 @@ namespace eDnevnikDLL
         }
 
 
-        //public static List<Profesor> PrikazProfesora()
-        //{
-        //    try
-        //    {
-        //        SqlCommand Cm = new SqlCommand();
-        //        Cm.Connection = Cn;
-        //        Cm.CommandType = CommandType.StoredProcedure;
-        //        Cm.CommandText = "skola.profesoriPrikaz";
-
-        //        Cn.Open();
-        //        List<Profesor> profesori = new List<Profesor>();
-
-        //        SqlDataReader dR = Cm.ExecuteReader();
-
-        //        while (dR.Read())
-        //        {
-        //            Profesor p = new Profesor(dR.GetInt32(0), dR.GetString(1), dR.GetString(2), dR.GetString(3), dR.GetString(4), dR.GetBoolean(5));
-        //            profesori.Add(p);
-        //        }
-
-        //        Cn.Close();
-
-        //        Console.WriteLine(profesori.Count);
-        //        return profesori;
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Cn.Close();
-        //        Console.WriteLine(ex);
-        //        return null;
-        //    }
-        //}
         public static int DodavanjeProfesora(Profesor dodati)
         {
             try
@@ -128,6 +95,9 @@ namespace eDnevnikDLL
                 Cm.Parameters.Add(new SqlParameter("@LoginSifra", SqlDbType.NVarChar, 4000, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, izmeniti.LoginSifra));
                 Cm.Parameters.Add(new SqlParameter("@Admin", SqlDbType.Bit, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, izmeniti.Admin));
                 Cm.Parameters.Add(new SqlParameter("@NazivPredmeta", SqlDbType.Bit, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, izmeniti.NazivPredmeta));
+                Cm.Parameters.Add(new SqlParameter("@BrojOdeljenja", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, izmeniti.BrojOdeljenja));
+                Cm.Parameters.Add(new SqlParameter("@GodinaSkolovanja", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, izmeniti.GodinaSkolovanja));
+                Cm.Parameters.Add(new SqlParameter("@SkolskaGodina", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, izmeniti.SkolskaGodina));
                 Cm.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int, 4, ParameterDirection.ReturnValue, true, 0, 0, "", DataRowVersion.Current, Ret));
 
                 Cn.Open();
@@ -145,7 +115,43 @@ namespace eDnevnikDLL
             }
         }
 
+        public static int DodavanjeIIzmenaProfesora (Profesor dodajiliizmeni)
+        {
+            try
+            {
+                SqlCommand Cm = new SqlCommand();
+                Cm.Connection = Cn;
+                Cm.CommandType = CommandType.StoredProcedure;
+                Cm.CommandText = "dbo.ProfesorINSERTOrUPDATE";
 
+                int Ret = 99;
+
+                Cm.Parameters.Add(new SqlParameter("@ImeProfesora", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, dodajiliizmeni.ImeProfesora));
+                Cm.Parameters.Add(new SqlParameter("@Email", SqlDbType.NVarChar, 255, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, dodajiliizmeni.Email));
+                Cm.Parameters.Add(new SqlParameter("@KontaktTelefon", SqlDbType.NVarChar, 50, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, dodajiliizmeni.KontaktTelefon));
+                Cm.Parameters.Add(new SqlParameter("@LoginSifra", SqlDbType.NVarChar, 4000, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, dodajiliizmeni.LoginSifra));
+                Cm.Parameters.Add(new SqlParameter("@Admin", SqlDbType.Bit, 2, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, dodajiliizmeni.Admin));
+                Cm.Parameters.Add(new SqlParameter("@NazivPredmeta", SqlDbType.NVarChar, 100, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, dodajiliizmeni.NazivPredmeta));
+                Cm.Parameters.Add(new SqlParameter("@BrojOdeljenja", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, dodajiliizmeni.BrojOdeljenja));
+                Cm.Parameters.Add(new SqlParameter("@GodinaSkolovanja", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, dodajiliizmeni.GodinaSkolovanja));
+                Cm.Parameters.Add(new SqlParameter("@SkolskaGodina", SqlDbType.Int, 4, ParameterDirection.Input, false, 0, 0, "", DataRowVersion.Current, dodajiliizmeni.SkolskaGodina));
+                //Cm.Parameters.Add(new SqlParameter("@ProfesorID", SqlDbType.Int, 4, ParameterDirection.Output, false, 0, 0, "", DataRowVersion.Current, null));
+                Cm.Parameters.Add(new SqlParameter("@RETURN_VALUE", SqlDbType.Int, 4, ParameterDirection.ReturnValue, true, 0, 0, "", DataRowVersion.Current, Ret));
+
+                Cn.Open();
+                Cm.ExecuteNonQuery();
+                Cn.Close();
+
+                Ret = (int)Cm.Parameters["@RETURN_VALUE"].Value;
+                return Ret;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return 99;
+            }
+        }
         public static int BrisanjeProfesora(Profesor izbrisati)
         {
             try

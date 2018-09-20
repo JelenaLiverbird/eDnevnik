@@ -466,20 +466,88 @@ GO
 
 --- Procedura za prikaz profesora ---
 
-CREATE PROCEDURE dbo.profesoriPrikaz
+CREATE PROCEDURE dbo.profesoriPrikazPoID
+@ProfesorID int
 AS
+	BEGIN
+	SELECT *
+	FROM Profesori
+	WHERE ProfesorID = @ProfesorID
+	END
+GO
+
+ALTER PROCEDURE dbo.profesoriPrikaz
+AS
+	BEGIN
+	SELECT *
+	FROM Profesori
+	END
+GO
+
+----------- DODAVANJE I IZMENA PROFESORA ----------
+
+CREATE PROC [dbo].[ProfesorINSERTOrUPDATE]
+@ProfesorID int,
+@ImeProfesora nvarchar(50),
+@Email nvarchar(255),
+@KontaktTelefon nvarchar(50),
+@LoginSifra nvarchar(max), 
+@Admin bit = 0, 
+@NazivPredmeta nvarchar(100), 
+@BrojOdeljenja int, 
+@GodinaSkolovanja int, 
+@SkolskaGodina int
+AS
+BEGIN
+IF(@ProfesorID=0)
 BEGIN TRY
-	SELECT * FROM dbo.Profesori ORDER BY ImeProfesora
-	RETURN 0
+	INSERT INTO dbo.Profesori
+	(ImeProfesora, Email, KontaktTelefon, LoginSifra, Admin)
+	VALUES
+	(@ImeProfesora, @Email, @KontaktTelefon, @LoginSifra, @Admin)
+
+	INSERT INTO dbo.DodeljeniProfesori
+	(ProfesorID, PredmetID, OdeljenjeID)
+	VALUES	
+	(	@@IDENTITY, 
+		(SELECT PredmetID FROM dbo.Predmeti WHERE NazivPredmeta = @NazivPredmeta AND Godina = @GodinaSkolovanja),
+		(SELECT OdeljenjeID FROM dbo.Odeljenja
+		INNER JOIN dbo.Godine 
+		ON dbo.Odeljenja.GodinaID = dbo.Godine.GodinaID 
+		WHERE BrojOdeljenja = @BrojOdeljenja AND dbo.Godine.GodinaSkolovanja = @GodinaSkolovanja AND SkolskaGodina = @SkolskaGodina)
+	)
 END TRY
 BEGIN CATCH
 	RETURN @@ERROR
 END CATCH
-GO
+ELSE
+BEGIN TRY
+IF EXISTS (SELECT 1 FROM dbo.Profesori WHERE ProfesorID = @ProfesorID)
+	BEGIN
+		UPDATE dbo.Profesori
+		SET ImeProfesora = @ImeProfesora, Email = @Email, KontaktTelefon = @KontaktTelefon, LoginSifra = @LoginSifra, Admin = @Admin
+		WHERE ProfesorID = @ProfesorID
+		
+		UPDATE dbo.DodeljeniProfesori
+		SET PredmetID = (SELECT PredmetID FROM dbo.Predmeti where NazivPredmeta = @NazivPredmeta AND Godina = @GodinaSkolovanja), 
+			OdeljenjeID = (SELECT OdeljenjeID FROM dbo.Odeljenja INNER JOIN dbo.Godine ON dbo.Odeljenja.GodinaID = dbo.Godine.GodinaID 
+			WHERE BrojOdeljenja = @BrojOdeljenja AND dbo.Godine.GodinaSkolovanja = @GodinaSkolovanja AND SkolskaGodina = @SkolskaGodina)
+		WHERE ProfesorID = @ProfesorID
+		RETURN 0
+	END
+ELSE
+	BEGIN 
+		RETURN -1
+	END
+END TRY
+BEGIN CATCH
+	RETURN @@ERROR
+END CATCH
+END
 
 --- Procedura za dodavanje profesora ---
 
-alter PROCEDURE dbo.profesoriINSERT
+CREATE PROCEDURE dbo.profesoriINSERT
 (@ImeProfesora nvarchar(50), @Email nvarchar(255), @KontaktTelefon nvarchar(50), @LoginSifra nvarchar(max), @Admin bit = 0, @NazivPredmeta nvarchar(100), @BrojOdeljenja int, @GodinaSkolovanja int, @SkolskaGodina int)
 AS
 BEGIN TRY
@@ -507,8 +575,8 @@ GO
 
 --- Procedura za menjanje profesora ---
 
-CREATE PROCEDURE dbo.profesoriUPDATE
-(@ProfesorID int, @ImeProfesora nvarchar(50), @Email nvarchar(255), @KontaktTelefon nvarchar(50), @LoginSifra nvarchar(max), @Admin bit, @NazivPredmeta nvarchar(100), @BrojOdeljenja int, @GodinaSkolovanja int, @SkolskaGodina int)
+alter PROCEDURE dbo.profesoriUPDATE
+(@ProfesorID int, @ImeProfesora nvarchar(50), @Email nvarchar(255), @KontaktTelefon nvarchar(50), @LoginSifra nvarchar(max), @Admin bit = 0, @NazivPredmeta nvarchar(100), @BrojOdeljenja int, @GodinaSkolovanja int, @SkolskaGodina int)
 AS
 BEGIN TRY
 IF EXISTS (SELECT 1 FROM dbo.Profesori WHERE ProfesorID = @ProfesorID)
@@ -518,7 +586,7 @@ IF EXISTS (SELECT 1 FROM dbo.Profesori WHERE ProfesorID = @ProfesorID)
 		WHERE ProfesorID = @ProfesorID
 		
 		UPDATE dbo.DodeljeniProfesori
-		SET PredmetID = (SELECT PredmetID FROM dbo.Predmeti where NazivPredmeta = @NazivPredmeta), 
+		SET PredmetID = (SELECT PredmetID FROM dbo.Predmeti where NazivPredmeta = @NazivPredmeta AND Godina = @GodinaSkolovanja), 
 			OdeljenjeID = (SELECT OdeljenjeID FROM dbo.Odeljenja INNER JOIN dbo.Godine ON dbo.Odeljenja.GodinaID = dbo.Godine.GodinaID 
 			WHERE BrojOdeljenja = @BrojOdeljenja AND dbo.Godine.GodinaSkolovanja = @GodinaSkolovanja AND SkolskaGodina = @SkolskaGodina)
 		WHERE ProfesorID = @ProfesorID
